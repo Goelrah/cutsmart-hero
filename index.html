@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CutSmart — Download | Hero Steels Limited</title>
+<link rel="icon" href="https://www.herosteels.com/images/logo-f.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f13;color:#e2e8f0;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* Hero Steels brand colors: dark bg, red accent, gold highlights */
+:root{--hero-red:#C4261D;--hero-gold:#d4a853;--bg:#0d0f13;--surface:#141720;--border:#1e2430;--tx:#e8ecf2;--tx2:#8a95a8;--tx3:#4a5568}
+
+/* Top bar — mimics herosteels.com nav */
+.topbar{background:#000;padding:10px 0;border-bottom:1px solid #1a1e28;text-align:center}
+.topbar-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar img{height:36px}
+.topbar-links{display:flex;gap:20px;font-size:11px;color:var(--tx2)}
+.topbar-links a{color:var(--tx2);text-decoration:none}
+.topbar-links a:hover{color:var(--hero-gold)}
+
+.container{max-width:900px;margin:0 auto;padding:48px 24px}
+
+/* Header */
+.header{text-align:center;margin-bottom:52px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(212,168,83,0.08);color:var(--hero-gold);border:1px solid rgba(212,168,83,0.15);margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
+.brand{font-size:46px;font-weight:900;margin-bottom:10px;letter-spacing:-1px}
+.brand-cut{color:var(--hero-red)}
+.brand-smart{color:#fff}
+.subtitle{font-size:13px;color:var(--tx3);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.tagline{font-size:15px;color:var(--tx2);max-width:520px;margin:0 auto;line-height:1.8}
+
+/* Section headers */
+.section{margin-bottom:36px}
+.section-title{font-size:11px;font-weight:700;color:var(--hero-gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;padding-left:4px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:'';width:16px;height:1px;background:var(--hero-gold)}
+
+/* Download cards */
+.downloads{display:grid;gap:10px;margin-bottom:8px}
+.dl-card{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:10px;background:var(--surface);border:1px solid var(--border);transition:all 0.2s}
+.dl-card:hover{border-color:rgba(196,38,29,0.3);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.dl-icon{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dl-icon-win{background:rgba(59,130,246,0.08);color:#60a5fa}
+.dl-icon-mac{background:rgba(148,163,184,0.08);color:#94a3b8}
+.dl-icon-linux{background:rgba(251,146,60,0.08);color:#fb923c}
+.dl-icon-java{background:rgba(16,185,129,0.08);color:#34d399}
+.dl-info{flex:1;min-width:0}
+.dl-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.dl-desc{font-size:11.5px;color:var(--tx2);line-height:1.5}
+.dl-meta{font-size:10px;color:var(--tx3);margin-top:4px}
+.dl-btn{padding:8px 20px;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;color:#fff;background:var(--hero-red);border:none;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block}
+.dl-btn:hover{background:#a3211a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(196,38,29,0.3)}
+.dl-btn-alt{background:transparent;border:1.5px solid var(--border);color:var(--tx2)}
+.dl-btn-alt:hover{border-color:var(--hero-red);color:var(--hero-red);background:rgba(196,38,29,0.04)}
+
+/* Recommended */
+.recommended{position:relative;border-color:rgba(196,38,29,0.2)}
+.rec-badge{position:absolute;top:-9px;right:16px;font-size:9px;font-weight:700;padding:2px 10px;border-radius:4px;background:var(--hero-red);color:#fff;letter-spacing:0.5px}
+
+/* Requirements */
+.requirements{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 26px;margin-bottom:36px}
+.req-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:14px}
+.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.req-item{font-size:11.5px;color:var(--tx2);display:flex;align-items:center;gap:8px}
+.req-check{color:#34d399;font-weight:700;font-size:12px}
+
+/* Footer */
+.footer{text-align:center;padding-top:36px;border-top:1px solid var(--border)}
+.footer-logo{height:28px;margin-bottom:12px;opacity:0.7}
+.footer p{font-size:11px;color:var(--tx3);line-height:1.8}
+.nda{font-size:10px;color:var(--hero-red);margin-top:12px;padding:10px 18px;border-radius:6px;background:rgba(196,38,29,0.04);border:1px solid rgba(196,38,29,0.1);display:inline-block}
+
+/* Responsive */
+@media(max-width:600px){
+  .dl-card{flex-direction:column;align-items:flex-start;gap:12px}
+  .req-grid{grid-template-columns:1fr}
+  .brand{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels Limited">
+    <div class="topbar-links">
+      <a href="https://www.herosteels.com">herosteels.com</a>
+      <a href="mailto:info@herosteels.com">info@herosteels.com</a>
+      <span>+91 161 518 0000</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="hero-badge">⚡ Hero Enterprise Group · Since 1995</div>
+    <div class="brand"><span class="brand-cut">Cut</span><span class="brand-smart">Smart</span></div>
+    <div class="subtitle">Steel Coil Optimization Engine</div>
+    <p class="tagline">Cutting big steel coils into smart strips — faster, with less waste, and zero mistakes. Built exclusively for Hero Steels Limited.</p>
+  </div>
+
+  <!-- Windows -->
+  <div class="section">
+    <div class="section-title">Windows</div>
+    <div class="downloads">
+      <div class="dl-card recommended">
+        <span class="rec-badge">RECOMMENDED</span>
+        <div class="dl-icon dl-icon-win">🪟</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart Desktop — Windows 10 / 11</div>
+          <div class="dl-desc">Native desktop application with full optimization engine. Best performance.</div>
+          <div class="dl-meta">5.9 MB · MSI Installer · Windows 10 (build 1803) or later</div>
+        </div>
+        <a href="#" class="dl-btn" id="dl-msi">Download .msi</a>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-win">🪟</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart Desktop — EXE Installer</div>
+          <div class="dl-desc">Same application, alternative installer format.</div>
+          <div class="dl-meta">5.0 MB · NSIS Installer · Windows 10+</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-exe">Download .exe</a>
+      </div>
+
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-java">☕</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart Native — Any Windows (XP / 7 / 8 / 10 / 11)</div>
+          <div class="dl-desc">For older machines. Bundled runtime — no Java installation needed.</div>
+          <div class="dl-meta">~50 MB · Self-contained EXE · Windows XP SP3 and above</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-java">Download .exe</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- macOS -->
+  <div class="section">
+    <div class="section-title">macOS</div>
+    <div class="downloads">
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-mac">🍎</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart for Mac — Apple Silicon (M1/M2/M3)</div>
+          <div class="dl-meta">4.0 MB · DMG · macOS 11+</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-arm">Download .dmg</a>
+      </div>
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-mac">🍎</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart for Mac — Intel</div>
+          <div class="dl-meta">4.2 MB · DMG · macOS 10.15+</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-intel">Download .dmg</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linux -->
+  <div class="section">
+    <div class="section-title">Linux</div>
+    <div class="downloads">
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-linux">🐧</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart for Linux — Ubuntu / Debian</div>
+          <div class="dl-meta">4.1 MB · .deb package · Ubuntu 22.04+</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-deb">Download .deb</a>
+      </div>
+      <div class="dl-card">
+        <div class="dl-icon dl-icon-linux">🐧</div>
+        <div class="dl-info">
+          <div class="dl-name">CutSmart for Linux — Universal AppImage</div>
+          <div class="dl-meta">8.1 MB · AppImage · Any Linux x64</div>
+        </div>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-appimage">Download .AppImage</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requirements -->
+  <div class="requirements">
+    <div class="req-title">System Requirements</div>
+    <div class="req-grid">
+      <div class="req-item"><span class="req-check">✓</span> Windows 10+ (Desktop) or XP SP3+ (Native)</div>
+      <div class="req-item"><span class="req-check">✓</span> 64-bit processor (x86_64)</div>
+      <div class="req-item"><span class="req-check">✓</span> 256 MB free RAM</div>
+      <div class="req-item"><span class="req-check">✓</span> 50 MB disk space</div>
+      <div class="req-item"><span class="req-check">✓</span> No internet required (fully offline)</div>
+      <div class="req-item"><span class="req-check">✓</span> No additional software needed</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="footer-logo">
+    <p>
+      Built exclusively for Hero Steels Limited<br>
+      Hero Nagar, G.T. Road, Ludhiana – 141003, Punjab (India)<br>
+      © 2026 Hero Steels Limited. All rights reserved.
+    </p>
+    <div class="nda">🔒 CONFIDENTIAL — This software is provided under NDA. Unauthorized distribution is strictly prohibited.</div>
+  </div>
+</div>
+
+<script>
+// Update these URLs after uploading binaries to the public repo's Releases
+var BASE = 'https://github.com/Goelrah/cutsmart-hero/releases/download/v1.0.0';
+var links = {
+  'dl-msi': BASE + '/CutSmart_1.0.0_x64_en-US.msi',
+  'dl-exe': BASE + '/CutSmart_1.0.0_x64-setup.exe',
+  'dl-java': BASE + '/CutSmart-Native-1.0.0.exe',
+  'dl-mac-arm': BASE + '/CutSmart_1.0.0_aarch64.dmg',
+  'dl-mac-intel': BASE + '/CutSmart_1.0.0_x64.dmg',
+  'dl-deb': BASE + '/CutSmart_1.0.0_amd64.deb',
+  'dl-appimage': BASE + '/CutSmart_1.0.0_amd64.AppImage'
+};
+Object.keys(links).forEach(function(id){
+  var el = document.getElementById(id);
+  if(el) el.href = links[id];
+});
+</script>
+
+</body>
+</html>
