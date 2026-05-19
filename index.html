@@ -5,86 +5,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CutSmart — Download | Hero Steels Limited</title>
 <link rel="icon" href="https://www.herosteels.com/images/logo-f.png">
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.18.0/dist/framer-motion.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f13;color:#e2e8f0;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#080a0e;color:#e2e8f0;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* Hero Steels brand colors: dark bg, red accent, gold highlights */
-:root{--hero-red:#C4261D;--hero-gold:#d4a853;--bg:#0d0f13;--surface:#141720;--border:#1e2430;--tx:#e8ecf2;--tx2:#8a95a8;--tx3:#4a5568}
+:root{--hero-red:#C4261D;--gold:#d4a853;--bg:#080a0e;--surface:#0f1218;--surface2:#141a22;--border:#1a2030;--tx:#e8ecf2;--tx2:#8a95a8;--tx3:#4a5568;--green:#10b981}
 
-/* Top bar — mimics herosteels.com nav */
-.topbar{background:#000;padding:10px 0;border-bottom:1px solid #1a1e28;text-align:center}
-.topbar-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.topbar img{height:36px}
-.topbar-links{display:flex;gap:20px;font-size:11px;color:var(--tx2)}
-.topbar-links a{color:var(--tx2);text-decoration:none}
-.topbar-links a:hover{color:var(--hero-gold)}
+/* Animated background */
+.bg-anim{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0;animation:orbFloat 8s ease-in-out infinite alternate}
+.bg-orb-1{width:400px;height:400px;background:rgba(196,38,29,0.04);top:10%;left:20%;animation-delay:0s}
+.bg-orb-2{width:300px;height:300px;background:rgba(212,168,83,0.03);bottom:20%;right:15%;animation-delay:2s}
+.bg-orb-3{width:200px;height:200px;background:rgba(16,185,129,0.03);top:60%;left:50%;animation-delay:4s}
+@keyframes orbFloat{0%{opacity:0.4;transform:translate(0,0)}100%{opacity:0.8;transform:translate(20px,-15px)}}
 
-.container{max-width:900px;margin:0 auto;padding:48px 24px}
+/* Grid overlay */
+.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.02;
+  background-image:linear-gradient(rgba(255,255,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.3) 1px,transparent 1px);
+  background-size:60px 60px}
 
-/* Header */
-.header{text-align:center;margin-bottom:52px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(212,168,83,0.08);color:var(--hero-gold);border:1px solid rgba(212,168,83,0.15);margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
-.brand{font-size:46px;font-weight:900;margin-bottom:10px;letter-spacing:-1px}
+/* Top bar */
+.topbar{position:relative;z-index:10;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);padding:12px 0;border-bottom:1px solid var(--border)}
+.topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar-logo{height:32px;opacity:0.9}
+.topbar-links{display:flex;gap:20px;font-size:10px;color:var(--tx3);letter-spacing:0.5px}
+.topbar-links a{color:var(--tx3);text-decoration:none;transition:color 0.2s}
+.topbar-links a:hover{color:var(--gold)}
+
+.container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:56px 24px 40px}
+
+/* Header — animated entrance */
+.header{text-align:center;margin-bottom:60px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:20px;font-size:9px;font-weight:700;background:rgba(212,168,83,0.06);color:var(--gold);border:1px solid rgba(212,168,83,0.12);margin-bottom:24px;letter-spacing:1.5px;text-transform:uppercase;
+  animation:fadeDown 0.6s ease 0.2s both}
+.brand{font-size:52px;font-weight:900;margin-bottom:12px;letter-spacing:-1px;animation:fadeDown 0.6s ease 0.4s both}
 .brand-cut{color:var(--hero-red)}
 .brand-smart{color:#fff}
-.subtitle{font-size:13px;color:var(--tx3);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
-.tagline{font-size:15px;color:var(--tx2);max-width:520px;margin:0 auto;line-height:1.8}
+.subtitle{font-size:12px;color:var(--tx3);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;animation:fadeDown 0.6s ease 0.6s both}
+.tagline{font-size:15px;color:var(--tx2);max-width:500px;margin:0 auto;line-height:1.8;animation:fadeDown 0.6s ease 0.8s both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
 
-/* Section headers */
-.section{margin-bottom:36px}
-.section-title{font-size:11px;font-weight:700;color:var(--hero-gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;padding-left:4px;display:flex;align-items:center;gap:8px}
-.section-title::before{content:'';width:16px;height:1px;background:var(--hero-gold)}
+/* Stats bar */
+.stats{display:flex;justify-content:center;gap:32px;margin-bottom:48px;animation:fadeDown 0.6s ease 1.0s both}
+.stat{text-align:center}
+.stat-val{font-size:22px;font-weight:900;color:var(--hero-red)}
+.stat-label{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* Section */
+.section{margin-bottom:40px;animation:fadeUp 0.6s ease both}
+.section:nth-child(1){animation-delay:1.0s}
+.section:nth-child(2){animation-delay:1.2s}
+.section:nth-child(3){animation-delay:1.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.section-title{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:14px;padding-left:4px;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
 
 /* Download cards */
-.downloads{display:grid;gap:10px;margin-bottom:8px}
-.dl-card{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:10px;background:var(--surface);border:1px solid var(--border);transition:all 0.2s}
-.dl-card:hover{border-color:rgba(196,38,29,0.3);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-.dl-icon{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.dl-icon-win{background:rgba(59,130,246,0.08);color:#60a5fa}
-.dl-icon-mac{background:rgba(148,163,184,0.08);color:#94a3b8}
-.dl-icon-linux{background:rgba(251,146,60,0.08);color:#fb923c}
-.dl-icon-java{background:rgba(16,185,129,0.08);color:#34d399}
-.dl-info{flex:1;min-width:0}
-.dl-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
-.dl-desc{font-size:11.5px;color:var(--tx2);line-height:1.5}
-.dl-meta{font-size:10px;color:var(--tx3);margin-top:4px}
-.dl-btn{padding:8px 20px;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;color:#fff;background:var(--hero-red);border:none;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block}
-.dl-btn:hover{background:#a3211a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(196,38,29,0.3)}
-.dl-btn-alt{background:transparent;border:1.5px solid var(--border);color:var(--tx2)}
-.dl-btn-alt:hover{border-color:var(--hero-red);color:var(--hero-red);background:rgba(196,38,29,0.04)}
+.downloads{display:grid;gap:10px}
+.dl-card{display:flex;align-items:center;gap:16px;padding:18px 24px;border-radius:12px;background:var(--surface);border:1px solid var(--border);transition:all 0.25s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.dl-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,38,29,0.02),transparent);opacity:0;transition:opacity 0.3s}
+.dl-card:hover{border-color:rgba(196,38,29,0.25);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4)}
+.dl-card:hover::before{opacity:1}
+.dl-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;z-index:1}
+.dl-icon-win{background:rgba(59,130,246,0.06);color:#60a5fa;border:1px solid rgba(59,130,246,0.1)}
+.dl-icon-mac{background:rgba(148,163,184,0.06);color:#94a3b8;border:1px solid rgba(148,163,184,0.1)}
+.dl-icon-linux{background:rgba(251,146,60,0.06);color:#fb923c;border:1px solid rgba(251,146,60,0.1)}
+.dl-icon-java{background:rgba(16,185,129,0.06);color:#34d399;border:1px solid rgba(16,185,129,0.1)}
+.dl-info{flex:1;min-width:0;position:relative;z-index:1}
+.dl-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:3px}
+.dl-desc{font-size:11px;color:var(--tx2);line-height:1.5}
+.dl-meta{font-size:9.5px;color:var(--tx3);margin-top:4px;display:flex;gap:8px;align-items:center}
+.dl-meta span{display:inline-flex;align-items:center;gap:3px}
+.dl-btn{position:relative;z-index:1;padding:9px 22px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;color:#fff;background:var(--hero-red);border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;display:inline-block;box-shadow:0 2px 8px rgba(196,38,29,0.2)}
+.dl-btn:hover{background:#a3211a;transform:translateY(-1px);box-shadow:0 6px 20px rgba(196,38,29,0.35)}
+.dl-btn-alt{background:transparent;border:1.5px solid var(--border);color:var(--tx2);box-shadow:none}
+.dl-btn-alt:hover{border-color:var(--hero-red);color:#fff;background:rgba(196,38,29,0.08);box-shadow:0 4px 16px rgba(196,38,29,0.15)}
 
 /* Recommended */
-.recommended{position:relative;border-color:rgba(196,38,29,0.2)}
-.rec-badge{position:absolute;top:-9px;right:16px;font-size:9px;font-weight:700;padding:2px 10px;border-radius:4px;background:var(--hero-red);color:#fff;letter-spacing:0.5px}
+.recommended{border-color:rgba(196,38,29,0.15);background:linear-gradient(135deg,var(--surface),rgba(196,38,29,0.02))}
+.rec-badge{position:absolute;top:0;right:20px;font-size:8px;font-weight:700;padding:3px 10px;border-radius:0 0 5px 5px;background:var(--hero-red);color:#fff;letter-spacing:0.8px;z-index:2}
 
 /* Requirements */
-.requirements{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 26px;margin-bottom:36px}
-.req-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:14px}
-.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.req-item{font-size:11.5px;color:var(--tx2);display:flex;align-items:center;gap:8px}
-.req-check{color:#34d399;font-weight:700;font-size:12px}
+.requirements{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:40px;animation:fadeUp 0.6s ease 1.6s both}
+.req-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.req-title::before{content:'⚙️';font-size:14px}
+.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.req-item{font-size:11px;color:var(--tx2);display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:rgba(16,185,129,0.03);border:1px solid rgba(16,185,129,0.06)}
+.req-check{color:var(--green);font-size:11px}
 
 /* Footer */
-.footer{text-align:center;padding-top:36px;border-top:1px solid var(--border)}
-.footer-logo{height:28px;margin-bottom:12px;opacity:0.7}
-.footer p{font-size:11px;color:var(--tx3);line-height:1.8}
-.nda{font-size:10px;color:var(--hero-red);margin-top:12px;padding:10px 18px;border-radius:6px;background:rgba(196,38,29,0.04);border:1px solid rgba(196,38,29,0.1);display:inline-block}
+.footer{text-align:center;padding-top:40px;border-top:1px solid var(--border);animation:fadeUp 0.6s ease 1.8s both}
+.footer-logo{height:26px;margin-bottom:14px;opacity:0.6}
+.footer p{font-size:10.5px;color:var(--tx3);line-height:2}
+.nda{font-size:9.5px;color:var(--hero-red);margin-top:16px;padding:10px 20px;border-radius:8px;background:rgba(196,38,29,0.03);border:1px solid rgba(196,38,29,0.08);display:inline-block;letter-spacing:0.3px}
 
 /* Responsive */
-@media(max-width:600px){
+@media(max-width:640px){
   .dl-card{flex-direction:column;align-items:flex-start;gap:12px}
   .req-grid{grid-template-columns:1fr}
-  .brand{font-size:32px}
+  .brand{font-size:36px}
+  .stats{gap:20px}
+  .topbar-links{display:none}
 }
 </style>
 </head>
 <body>
 
+<!-- Animated background -->
+<div class="bg-anim">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+</div>
+<div class="bg-grid"></div>
+
 <!-- Top bar -->
 <div class="topbar">
   <div class="topbar-inner">
-    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels Limited">
+    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels Limited" class="topbar-logo">
     <div class="topbar-links">
       <a href="https://www.herosteels.com">herosteels.com</a>
       <a href="mailto:info@herosteels.com">info@herosteels.com</a>
@@ -96,10 +136,18 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
 <div class="container">
   <!-- Header -->
   <div class="header">
-    <div class="hero-badge">⚡ Hero Enterprise Group · Since 1995</div>
+    <div class="hero-badge">⚡ Hero Enterprise Group · Est. 1995 · ISO 9001 & 14001</div>
     <div class="brand"><span class="brand-cut">Cut</span><span class="brand-smart">Smart</span></div>
     <div class="subtitle">Steel Coil Optimization Engine</div>
     <p class="tagline">Cutting big steel coils into smart strips — faster, with less waste, and zero mistakes. Built exclusively for Hero Steels Limited.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-val">262</div><div class="stat-label">Coils Processed</div></div>
+    <div class="stat"><div class="stat-val">1,475</div><div class="stat-label">Orders Matched</div></div>
+    <div class="stat"><div class="stat-val">99.9%</div><div class="stat-label">Yield Achieved</div></div>
+    <div class="stat"><div class="stat-val">~2s</div><div class="stat-label">Engine Speed</div></div>
   </div>
 
   <!-- Windows -->
@@ -111,30 +159,30 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
         <div class="dl-icon dl-icon-win">🪟</div>
         <div class="dl-info">
           <div class="dl-name">CutSmart Desktop — Windows 10 / 11</div>
-          <div class="dl-desc">Native desktop application with full optimization engine. Best performance.</div>
-          <div class="dl-meta">5.9 MB · MSI Installer · Windows 10 (build 1803) or later</div>
+          <div class="dl-desc">Native desktop application with full optimization engine. Best performance and UI experience.</div>
+          <div class="dl-meta"><span>📦 5.9 MB</span><span>· MSI Installer</span><span>· Windows 10+</span></div>
         </div>
-        <a href="#" class="dl-btn" id="dl-msi">Download .msi</a>
+        <a href="#" class="dl-btn" id="dl-msi">Download</a>
       </div>
 
       <div class="dl-card">
         <div class="dl-icon dl-icon-win">🪟</div>
         <div class="dl-info">
           <div class="dl-name">CutSmart Desktop — EXE Installer</div>
-          <div class="dl-desc">Same application, alternative installer format.</div>
-          <div class="dl-meta">5.0 MB · NSIS Installer · Windows 10+</div>
+          <div class="dl-desc">Same application, NSIS installer format. Use if MSI is blocked by IT policy.</div>
+          <div class="dl-meta"><span>📦 5.0 MB</span><span>· EXE</span><span>· Windows 10+</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-exe">Download .exe</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-exe">Download</a>
       </div>
 
       <div class="dl-card">
         <div class="dl-icon dl-icon-java">☕</div>
         <div class="dl-info">
           <div class="dl-name">CutSmart Native — Any Windows (XP / 7 / 8 / 10 / 11)</div>
-          <div class="dl-desc">For older machines. Bundled runtime — no Java installation needed.</div>
-          <div class="dl-meta">~50 MB · Self-contained EXE · Windows XP SP3 and above</div>
+          <div class="dl-desc">For older machines. Self-contained — no Java or runtime installation needed.</div>
+          <div class="dl-meta"><span>📦 ~50 MB</span><span>· EXE</span><span>· Windows XP SP3+</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-java">Download .exe</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-java">Download</a>
       </div>
     </div>
   </div>
@@ -146,18 +194,18 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
       <div class="dl-card">
         <div class="dl-icon dl-icon-mac">🍎</div>
         <div class="dl-info">
-          <div class="dl-name">CutSmart for Mac — Apple Silicon (M1/M2/M3)</div>
-          <div class="dl-meta">4.0 MB · DMG · macOS 11+</div>
+          <div class="dl-name">CutSmart for Mac — Apple Silicon (M1/M2/M3/M4)</div>
+          <div class="dl-meta"><span>📦 4.0 MB</span><span>· DMG</span><span>· macOS 11+</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-arm">Download .dmg</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-arm">Download</a>
       </div>
       <div class="dl-card">
         <div class="dl-icon dl-icon-mac">🍎</div>
         <div class="dl-info">
           <div class="dl-name">CutSmart for Mac — Intel</div>
-          <div class="dl-meta">4.2 MB · DMG · macOS 10.15+</div>
+          <div class="dl-meta"><span>📦 4.2 MB</span><span>· DMG</span><span>· macOS 10.15+</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-intel">Download .dmg</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-intel">Download</a>
       </div>
     </div>
   </div>
@@ -169,18 +217,18 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
       <div class="dl-card">
         <div class="dl-icon dl-icon-linux">🐧</div>
         <div class="dl-info">
-          <div class="dl-name">CutSmart for Linux — Ubuntu / Debian</div>
-          <div class="dl-meta">4.1 MB · .deb package · Ubuntu 22.04+</div>
+          <div class="dl-name">Ubuntu / Debian (.deb)</div>
+          <div class="dl-meta"><span>📦 4.1 MB</span><span>· DEB</span><span>· Ubuntu 22.04+</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-deb">Download .deb</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-deb">Download</a>
       </div>
       <div class="dl-card">
         <div class="dl-icon dl-icon-linux">🐧</div>
         <div class="dl-info">
-          <div class="dl-name">CutSmart for Linux — Universal AppImage</div>
-          <div class="dl-meta">8.1 MB · AppImage · Any Linux x64</div>
+          <div class="dl-name">Universal AppImage</div>
+          <div class="dl-meta"><span>📦 8.1 MB</span><span>· AppImage</span><span>· Any Linux x64</span></div>
         </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-appimage">Download .AppImage</a>
+        <a href="#" class="dl-btn dl-btn-alt" id="dl-appimage">Download</a>
       </div>
     </div>
   </div>
@@ -190,7 +238,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
     <div class="req-title">System Requirements</div>
     <div class="req-grid">
       <div class="req-item"><span class="req-check">✓</span> Windows 10+ (Desktop) or XP SP3+ (Native)</div>
-      <div class="req-item"><span class="req-check">✓</span> 64-bit processor (x86_64)</div>
+      <div class="req-item"><span class="req-check">✓</span> 64-bit processor</div>
       <div class="req-item"><span class="req-check">✓</span> 256 MB free RAM</div>
       <div class="req-item"><span class="req-check">✓</span> 50 MB disk space</div>
       <div class="req-item"><span class="req-check">✓</span> No internet required (fully offline)</div>
@@ -206,12 +254,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0d0f1
       Hero Nagar, G.T. Road, Ludhiana – 141003, Punjab (India)<br>
       © 2026 Hero Steels Limited. All rights reserved.
     </p>
-    <div class="nda">🔒 CONFIDENTIAL — This software is provided under NDA. Unauthorized distribution is strictly prohibited.</div>
+    <div class="nda">🔒 CONFIDENTIAL — This software is provided under Non-Disclosure Agreement. Unauthorized distribution is strictly prohibited.</div>
   </div>
 </div>
 
 <script>
-// Update these URLs after uploading binaries to the public repo's Releases
+// Download links — point to public repo releases
 var BASE = 'https://github.com/Goelrah/cutsmart-hero/releases/download/v1.0.0';
 var links = {
   'dl-msi': BASE + '/CutSmart_1.0.0_x64_en-US.msi',
@@ -225,6 +273,22 @@ var links = {
 Object.keys(links).forEach(function(id){
   var el = document.getElementById(id);
   if(el) el.href = links[id];
+});
+
+// Intersection Observer for scroll animations
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.dl-card').forEach(function(card,i){
+  card.style.opacity='0';
+  card.style.transform='translateY(20px)';
+  card.style.transition='all 0.5s cubic-bezier(0.16,1,0.3,1) '+(i*0.08)+'s';
+  observer.observe(card);
 });
 </script>
 
