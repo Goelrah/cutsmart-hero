@@ -3,294 +3,1335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CutSmart — Download | Hero Steels Limited</title>
+<title>CutSmart — Hero Steels Limited | Steel Coil Optimization</title>
 <link rel="icon" href="https://www.herosteels.com/images/logo-f.png">
-<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.18.0/dist/framer-motion.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#080a0e;color:#e2e8f0;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-:root{--hero-red:#C4261D;--gold:#d4a853;--bg:#080a0e;--surface:#0f1218;--surface2:#141a22;--border:#1a2030;--tx:#e8ecf2;--tx2:#8a95a8;--tx3:#4a5568;--green:#10b981}
-
-/* Animated background */
-.bg-anim{position:fixed;inset:0;pointer-events:none;z-index:0}
-.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0;animation:orbFloat 8s ease-in-out infinite alternate}
-.bg-orb-1{width:400px;height:400px;background:rgba(196,38,29,0.04);top:10%;left:20%;animation-delay:0s}
-.bg-orb-2{width:300px;height:300px;background:rgba(212,168,83,0.03);bottom:20%;right:15%;animation-delay:2s}
-.bg-orb-3{width:200px;height:200px;background:rgba(16,185,129,0.03);top:60%;left:50%;animation-delay:4s}
-@keyframes orbFloat{0%{opacity:0.4;transform:translate(0,0)}100%{opacity:0.8;transform:translate(20px,-15px)}}
-
-/* Grid overlay */
-.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.02;
-  background-image:linear-gradient(rgba(255,255,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.3) 1px,transparent 1px);
-  background-size:60px 60px}
-
-/* Top bar */
-.topbar{position:relative;z-index:10;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);padding:12px 0;border-bottom:1px solid var(--border)}
-.topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.topbar-logo{height:32px;opacity:0.9}
-.topbar-links{display:flex;gap:20px;font-size:10px;color:var(--tx3);letter-spacing:0.5px}
-.topbar-links a{color:var(--tx3);text-decoration:none;transition:color 0.2s}
-.topbar-links a:hover{color:var(--gold)}
-
-.container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:56px 24px 40px}
-
-/* Header — animated entrance */
-.header{text-align:center;margin-bottom:60px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:20px;font-size:9px;font-weight:700;background:rgba(212,168,83,0.06);color:var(--gold);border:1px solid rgba(212,168,83,0.12);margin-bottom:24px;letter-spacing:1.5px;text-transform:uppercase;
-  animation:fadeDown 0.6s ease 0.2s both}
-.brand{font-size:52px;font-weight:900;margin-bottom:12px;letter-spacing:-1px;animation:fadeDown 0.6s ease 0.4s both}
-.brand-cut{color:var(--hero-red)}
-.brand-smart{color:#fff}
-.subtitle{font-size:12px;color:var(--tx3);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;animation:fadeDown 0.6s ease 0.6s both}
-.tagline{font-size:15px;color:var(--tx2);max-width:500px;margin:0 auto;line-height:1.8;animation:fadeDown 0.6s ease 0.8s both}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-
-/* Stats bar */
-.stats{display:flex;justify-content:center;gap:32px;margin-bottom:48px;animation:fadeDown 0.6s ease 1.0s both}
-.stat{text-align:center}
-.stat-val{font-size:22px;font-weight:900;color:var(--hero-red)}
-.stat-label{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
-
-/* Section */
-.section{margin-bottom:40px;animation:fadeUp 0.6s ease both}
-.section:nth-child(1){animation-delay:1.0s}
-.section:nth-child(2){animation-delay:1.2s}
-.section:nth-child(3){animation-delay:1.4s}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-.section-title{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:14px;padding-left:4px;display:flex;align-items:center;gap:10px}
-.section-title::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
-
-/* Download cards */
-.downloads{display:grid;gap:10px}
-.dl-card{display:flex;align-items:center;gap:16px;padding:18px 24px;border-radius:12px;background:var(--surface);border:1px solid var(--border);transition:all 0.25s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
-.dl-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,38,29,0.02),transparent);opacity:0;transition:opacity 0.3s}
-.dl-card:hover{border-color:rgba(196,38,29,0.25);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4)}
-.dl-card:hover::before{opacity:1}
-.dl-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;z-index:1}
-.dl-icon-win{background:rgba(59,130,246,0.06);color:#60a5fa;border:1px solid rgba(59,130,246,0.1)}
-.dl-icon-mac{background:rgba(148,163,184,0.06);color:#94a3b8;border:1px solid rgba(148,163,184,0.1)}
-.dl-icon-linux{background:rgba(251,146,60,0.06);color:#fb923c;border:1px solid rgba(251,146,60,0.1)}
-.dl-icon-java{background:rgba(16,185,129,0.06);color:#34d399;border:1px solid rgba(16,185,129,0.1)}
-.dl-info{flex:1;min-width:0;position:relative;z-index:1}
-.dl-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:3px}
-.dl-desc{font-size:11px;color:var(--tx2);line-height:1.5}
-.dl-meta{font-size:9.5px;color:var(--tx3);margin-top:4px;display:flex;gap:8px;align-items:center}
-.dl-meta span{display:inline-flex;align-items:center;gap:3px}
-.dl-btn{position:relative;z-index:1;padding:9px 22px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;color:#fff;background:var(--hero-red);border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;display:inline-block;box-shadow:0 2px 8px rgba(196,38,29,0.2)}
-.dl-btn:hover{background:#a3211a;transform:translateY(-1px);box-shadow:0 6px 20px rgba(196,38,29,0.35)}
-.dl-btn-alt{background:transparent;border:1.5px solid var(--border);color:var(--tx2);box-shadow:none}
-.dl-btn-alt:hover{border-color:var(--hero-red);color:#fff;background:rgba(196,38,29,0.08);box-shadow:0 4px 16px rgba(196,38,29,0.15)}
-
-/* Recommended */
-.recommended{border-color:rgba(196,38,29,0.15);background:linear-gradient(135deg,var(--surface),rgba(196,38,29,0.02))}
-.rec-badge{position:absolute;top:0;right:20px;font-size:8px;font-weight:700;padding:3px 10px;border-radius:0 0 5px 5px;background:var(--hero-red);color:#fff;letter-spacing:0.8px;z-index:2}
-
-/* Requirements */
-.requirements{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:40px;animation:fadeUp 0.6s ease 1.6s both}
-.req-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.req-title::before{content:'⚙️';font-size:14px}
-.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.req-item{font-size:11px;color:var(--tx2);display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:rgba(16,185,129,0.03);border:1px solid rgba(16,185,129,0.06)}
-.req-check{color:var(--green);font-size:11px}
-
-/* Footer */
-.footer{text-align:center;padding-top:40px;border-top:1px solid var(--border);animation:fadeUp 0.6s ease 1.8s both}
-.footer-logo{height:26px;margin-bottom:14px;opacity:0.6}
-.footer p{font-size:10.5px;color:var(--tx3);line-height:2}
-.nda{font-size:9.5px;color:var(--hero-red);margin-top:16px;padding:10px 20px;border-radius:8px;background:rgba(196,38,29,0.03);border:1px solid rgba(196,38,29,0.08);display:inline-block;letter-spacing:0.3px}
-
-/* Responsive */
-@media(max-width:640px){
-  .dl-card{flex-direction:column;align-items:flex-start;gap:12px}
-  .req-grid{grid-template-columns:1fr}
-  .brand{font-size:36px}
-  .stats{gap:20px}
-  .topbar-links{display:none}
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- Motion One (Framer Motion for vanilla JS) -->
+<script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+<!-- Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        hero: { red: '#C4261D', dark: '#8B1A14', light: '#E8453C' },
+        gold: { DEFAULT: '#d4a853', light: '#e8c97a', dark: '#b08a3a' },
+        steel: { 50: '#f0f2f5', 100: '#d9dde4', 200: '#b3bbc8', 300: '#8d99ac',
+                 400: '#677790', 500: '#4a5568', 600: '#2d3748', 700: '#1a202c',
+                 800: '#0f1218', 900: '#080a0e' }
+      },
+      fontFamily: { display: ['Inter', 'system-ui', 'sans-serif'] },
+      scale: { '115': '1.15' },
+      transitionDuration: { '400': '400ms' }
+    }
+  }
 }
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: #e2e8f0;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Three.js Canvas */
+#hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none; }
+
+/* Navbar */
+.nav-glass { background: rgba(8,10,14,0.7); backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nav-link { position: relative; transition: color 0.3s; }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0;
+  height: 2px; background: linear-gradient(90deg, #C4261D, #d4a853);
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1); }
+.nav-link:hover::after { width: 100%; }
+.nav-link:hover { color: #d4a853; }
+
+/* Hero Section */
+.hero-gradient { background: radial-gradient(ellipse at 50% 0%, rgba(196,38,29,0.08) 0%, transparent 60%),
+  radial-gradient(ellipse at 80% 50%, rgba(212,168,83,0.04) 0%, transparent 40%); }
+
+/* Feature Cards */
+.feature-card { background: rgba(15,18,24,0.8); border: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+.feature-card:hover { border-color: rgba(196,38,29,0.3); transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(196,38,29,0.1), 0 0 40px rgba(196,38,29,0.05); }
+.feature-card .card-glow { position: absolute; inset: 0; border-radius: inherit;
+  opacity: 0; transition: opacity 0.4s;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(196,38,29,0.06), transparent 60%); }
+.feature-card:hover .card-glow { opacity: 1; }
+
+/* Process nodes */
+.process-node { opacity: 0; }
+
+/* Stats Counter */
+.stat-card { background: rgba(15,18,24,0.6); border: 1px solid rgba(255,255,255,0.04);
+  position: relative; overflow: hidden; }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, transparent, #C4261D, transparent); }
+
+/* Download Section */
+.dl-card { background: rgba(15,18,24,0.8); border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+.dl-card:hover { border-color: rgba(196,38,29,0.25); transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+/* Scroll indicator */
+.scroll-indicator { animation: bounce 2s infinite; }
+@keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); }
+  40% { transform: translateY(10px); } 60% { transform: translateY(5px); } }
+
+/* Section reveal — starts hidden, animated by GSAP */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* Fallback: if JS fails, show everything after 3s */
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+
+/* Carousel styles */
+.carousel-perspective { perspective: 1200px; transform-style: preserve-3d; }
+#carousel-viewport { background: transparent; transform-style: preserve-3d; position: relative; }
+#carousel-viewport::before { content: ''; position: absolute; inset: -60px; z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(196,38,29,0.03), rgba(212,168,83,0.02) 40%, transparent 70%);
+  filter: blur(50px); pointer-events: none; }
+#carousel-slides { transform-style: preserve-3d; }
+#carousel-slides img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  object-position: center; backface-visibility: hidden; will-change: transform, opacity;
+  transform-origin: center center; border-radius: 1.5rem; }
+
+/* Loading shimmer */
+#carousel-slides::before { content: ''; position: absolute; inset: 0; z-index: 0; border-radius: 1.5rem;
+  background: linear-gradient(90deg, #080a0e 25%, #141a22 50%, #080a0e 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+#carousel-slides.loaded::before { display: none; }
+
+/* Viewport glow pulse on transition */
+@keyframes viewportGlow { 0% { filter: brightness(1); }
+  30% { filter: brightness(1.1); } 100% { filter: brightness(1); } }
+.viewport-glow { animation: viewportGlow 0.8s ease-out; }
+
+/* Particle burst overlay */
+.carousel-particles { position: absolute; inset: 0; z-index: 5; pointer-events: none; overflow: hidden; }
+.carousel-particle { position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #d4a853; opacity: 0; }
+
+/* Slide glitch effect */
+@keyframes glitchSlice { 0% { clip-path: inset(0 0 100% 0); } 20% { clip-path: inset(20% 0 60% 0); }
+  40% { clip-path: inset(60% 0 10% 0); } 60% { clip-path: inset(40% 0 30% 0); }
+  80% { clip-path: inset(10% 0 70% 0); } 100% { clip-path: inset(0 0 0 0); } }
+.slide-glitch { animation: glitchSlice 0.4s steps(5) forwards; }
+
+/* Dramatic zoom Ken Burns */
+@keyframes kenBurns { 0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.08) translate(-0.5%, -0.5%); } }
+.slide-active-kb { animation: kenBurns 7s ease-out forwards; }
+
+/* Slide wipe reveal */
+@keyframes wipeIn { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.slide-wipe { animation: wipeIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Counter flip */
+@keyframes counterFlip { 0% { transform: rotateX(0) scale(1); opacity: 1; }
+  50% { transform: rotateX(90deg) scale(0.8); opacity: 0; }
+  100% { transform: rotateX(0) scale(1); opacity: 1; } }
+.counter-flip { animation: counterFlip 0.4s ease-in-out; }
+
+/* Title reveal mask */
+@keyframes titleReveal { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.title-reveal { animation: titleReveal 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Carousel dots */
+.carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2);
+  cursor: pointer; border: none; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+.carousel-dot:hover { background: rgba(255,255,255,0.5); transform: scale(1.3); }
+.carousel-dot.active { width: 24px; border-radius: 3px; background: #C4261D;
+  box-shadow: 0 0 8px rgba(196,38,29,0.4); }
+
+/* Ken Burns effect on active slide */
+@keyframes kenBurns { 0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.06) translate(-1%, -1%); } }
+.slide-active-kb { animation: kenBurns 6s ease-out forwards; }
+
+/* Slide transition effects */
+.slide-enter { opacity: 0; transform: scale(1.05) translateX(30px); filter: blur(4px); }
+.slide-visible { opacity: 1; transform: scale(1) translateX(0); filter: blur(0); }
+.slide-exit { opacity: 0; transform: scale(0.95) translateX(-30px); filter: blur(4px); }
+
+/* Timer ring animation */
+@keyframes timerFill { from { stroke-dashoffset: 94.25; } to { stroke-dashoffset: 0; } }
+.timer-running { animation: timerFill 5s linear forwards; }
+
+/* Carousel dot active state */
+.carousel-dot { cursor: pointer; border: none; outline: none; }
+.carousel-dot:focus-visible { box-shadow: 0 0 0 2px rgba(196,38,29,0.5); }
+
+/* Parallax image */
+.parallax-img { transition: transform 0.1s linear; }
+
+/* Glowing border animation */
+@keyframes borderGlow { 0%,100% { border-color: rgba(196,38,29,0.2); }
+  50% { border-color: rgba(212,168,83,0.3); } }
+.glow-border { animation: borderGlow 4s ease-in-out infinite; }
+
+/* Platform section transitions */
+.platform-section { transition: opacity 0.4s ease, transform 0.3s ease; }
+.platform-section.dimmed { opacity: 0.4; }
+
+/* OS Banner entrance */
+#os-banner { animation: bannerSlide 0.6s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+@keyframes bannerSlide { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Highlighted card pulse */
+@keyframes cardPulse { 0%,100% { box-shadow: 0 0 20px rgba(16,185,129,0.06); }
+  50% { box-shadow: 0 0 35px rgba(16,185,129,0.12); } }
+.dl-card-highlighted { animation: cardPulse 3s ease-in-out infinite; }
 </style>
 </head>
-<body>
+<body class="font-display">
 
-<!-- Animated background -->
-<div class="bg-anim">
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-orb bg-orb-3"></div>
-</div>
-<div class="bg-grid"></div>
+<!-- Three.js 3D Canvas -->
+<canvas id="hero-canvas"></canvas>
 
-<!-- Top bar -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels Limited" class="topbar-logo">
-    <div class="topbar-links">
-      <a href="https://www.herosteels.com">herosteels.com</a>
-      <a href="mailto:info@herosteels.com">info@herosteels.com</a>
-      <span>+91 161 518 0000</span>
+<!-- Navigation -->
+<nav class="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="h-8 opacity-90">
+      <span class="text-lg font-bold tracking-tight">
+        <span class="text-hero-red">Cut</span><span class="text-white">Smart</span>
+      </span>
     </div>
-  </div>
-</div>
-
-<div class="container">
-  <!-- Header -->
-  <div class="header">
-    <div class="hero-badge">⚡ Hero Enterprise Group · Est. 1995 · ISO 9001 & 14001</div>
-    <div class="brand"><span class="brand-cut">Cut</span><span class="brand-smart">Smart</span></div>
-    <div class="subtitle">Steel Coil Optimization Engine</div>
-    <p class="tagline">Cutting big steel coils into smart strips — faster, with less waste, and zero mistakes. Built exclusively for Hero Steels Limited.</p>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat"><div class="stat-val">262</div><div class="stat-label">Coils Processed</div></div>
-    <div class="stat"><div class="stat-val">1,475</div><div class="stat-label">Orders Matched</div></div>
-    <div class="stat"><div class="stat-val">99.9%</div><div class="stat-label">Yield Achieved</div></div>
-    <div class="stat"><div class="stat-val">~2s</div><div class="stat-label">Engine Speed</div></div>
-  </div>
-
-  <!-- Windows -->
-  <div class="section">
-    <div class="section-title">Windows</div>
-    <div class="downloads">
-      <div class="dl-card recommended">
-        <span class="rec-badge">RECOMMENDED</span>
-        <div class="dl-icon dl-icon-win">🪟</div>
-        <div class="dl-info">
-          <div class="dl-name">CutSmart Desktop — Windows 10 / 11</div>
-          <div class="dl-desc">Native desktop application with full optimization engine. Best performance and UI experience.</div>
-          <div class="dl-meta"><span>📦 5.9 MB</span><span>· MSI Installer</span><span>· Windows 10+</span></div>
-        </div>
-        <a href="#" class="dl-btn" id="dl-msi">Download</a>
-      </div>
-
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-win">🪟</div>
-        <div class="dl-info">
-          <div class="dl-name">CutSmart Desktop — EXE Installer</div>
-          <div class="dl-desc">Same application, NSIS installer format. Use if MSI is blocked by IT policy.</div>
-          <div class="dl-meta"><span>📦 5.0 MB</span><span>· EXE</span><span>· Windows 10+</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-exe">Download</a>
-      </div>
-
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-java">☕</div>
-        <div class="dl-info">
-          <div class="dl-name">CutSmart Native — Any Windows (XP / 7 / 8 / 10 / 11)</div>
-          <div class="dl-desc">For older machines. Self-contained — no Java or runtime installation needed.</div>
-          <div class="dl-meta"><span>📦 ~50 MB</span><span>· EXE</span><span>· Windows XP SP3+</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-java">Download</a>
-      </div>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#features" class="nav-link text-sm text-steel-200 font-medium">Features</a>
+      <a href="#process" class="nav-link text-sm text-steel-200 font-medium">Process</a>
+      <a href="#stats" class="nav-link text-sm text-steel-200 font-medium">Performance</a>
+      <a href="#download" class="nav-link text-sm text-steel-200 font-medium">Download</a>
+      <a href="#contact" class="nav-link text-sm text-steel-200 font-medium">Contact</a>
     </div>
+    <a href="#download" class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+      bg-hero-red text-white text-sm font-semibold shadow-lg shadow-hero-red/20
+      hover:bg-hero-dark hover:shadow-hero-red/30 transition-all duration-300
+      hover:-translate-y-0.5">
+      Get CutSmart
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m0 0l-6-6m6 6l6-6"/>
+      </svg>
+    </a>
   </div>
+</nav>
 
-  <!-- macOS -->
-  <div class="section">
-    <div class="section-title">macOS</div>
-    <div class="downloads">
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-mac">🍎</div>
-        <div class="dl-info">
-          <div class="dl-name">CutSmart for Mac — Apple Silicon (M1/M2/M3/M4)</div>
-          <div class="dl-meta"><span>📦 4.0 MB</span><span>· DMG</span><span>· macOS 11+</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-arm">Download</a>
-      </div>
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-mac">🍎</div>
-        <div class="dl-info">
-          <div class="dl-name">CutSmart for Mac — Intel</div>
-          <div class="dl-meta"><span>📦 4.2 MB</span><span>· DMG</span><span>· macOS 10.15+</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-mac-intel">Download</a>
-      </div>
+<!-- Hero Section -->
+<section class="relative z-10 min-h-screen flex items-center justify-center hero-gradient pt-20">
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold
+      bg-gold/5 text-gold border border-gold/15 mb-8 tracking-wider uppercase
+      opacity-0" id="hero-badge">
+      ⚡ Hero Enterprise Group · Est. 1995 · ISO 9001 & 14001
     </div>
-  </div>
 
-  <!-- Linux -->
-  <div class="section">
-    <div class="section-title">Linux</div>
-    <div class="downloads">
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-linux">🐧</div>
-        <div class="dl-info">
-          <div class="dl-name">Ubuntu / Debian (.deb)</div>
-          <div class="dl-meta"><span>📦 4.1 MB</span><span>· DEB</span><span>· Ubuntu 22.04+</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-deb">Download</a>
-      </div>
-      <div class="dl-card">
-        <div class="dl-icon dl-icon-linux">🐧</div>
-        <div class="dl-info">
-          <div class="dl-name">Universal AppImage</div>
-          <div class="dl-meta"><span>📦 8.1 MB</span><span>· AppImage</span><span>· Any Linux x64</span></div>
-        </div>
-        <a href="#" class="dl-btn dl-btn-alt" id="dl-appimage">Download</a>
-      </div>
-    </div>
-  </div>
+    <!-- Main Heading -->
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 opacity-0" id="hero-title">
+      <span class="text-hero-red">Cut</span><span class="text-white">Smart</span>
+    </h1>
 
-  <!-- Requirements -->
-  <div class="requirements">
-    <div class="req-title">System Requirements</div>
-    <div class="req-grid">
-      <div class="req-item"><span class="req-check">✓</span> Windows 10+ (Desktop) or XP SP3+ (Native)</div>
-      <div class="req-item"><span class="req-check">✓</span> 64-bit processor</div>
-      <div class="req-item"><span class="req-check">✓</span> 256 MB free RAM</div>
-      <div class="req-item"><span class="req-check">✓</span> 50 MB disk space</div>
-      <div class="req-item"><span class="req-check">✓</span> No internet required (fully offline)</div>
-      <div class="req-item"><span class="req-check">✓</span> No additional software needed</div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="footer-logo">
-    <p>
-      Built exclusively for Hero Steels Limited<br>
-      Hero Nagar, G.T. Road, Ludhiana – 141003, Punjab (India)<br>
-      © 2026 Hero Steels Limited. All rights reserved.
+    <!-- Subtitle -->
+    <p class="text-lg md:text-xl text-steel-200 max-w-2xl mx-auto mb-4 leading-relaxed opacity-0" id="hero-sub">
+      Steel Coil Optimization Engine
     </p>
-    <div class="nda">🔒 CONFIDENTIAL — This software is provided under Non-Disclosure Agreement. Unauthorized distribution is strictly prohibited.</div>
-  </div>
-</div>
 
+    <!-- Tagline -->
+    <p class="text-sm md:text-base text-steel-300 max-w-xl mx-auto mb-12 leading-relaxed opacity-0" id="hero-tag">
+      Cutting big steel coils into smart strips — faster, with less waste, and zero mistakes.
+      Built exclusively for Hero Steels Limited.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0" id="hero-cta">
+      <a href="#download" class="px-8 py-4 rounded-xl bg-hero-red text-white font-bold text-sm
+        shadow-xl shadow-hero-red/25 hover:bg-hero-dark hover:shadow-hero-red/40
+        transition-all duration-300 hover:-translate-y-1 flex items-center gap-2">
+        Download Now
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m0 0l-6-6m6 6l6-6"/>
+        </svg>
+      </a>
+      <a href="#features" class="px-8 py-4 rounded-xl border border-steel-600 text-steel-200
+        font-semibold text-sm hover:border-hero-red/40 hover:text-white
+        transition-all duration-300 hover:-translate-y-1">
+        Explore Features
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
+    <svg class="w-6 h-6 text-steel-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Features Section — Cinematic Carousel -->
+<section id="features" class="relative z-10 py-24 md:py-32 overflow-hidden">
+  <!-- Ambient glow behind carousel — blends with page -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px]
+      bg-hero-red/[0.025] rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px]
+      bg-gold/[0.015] rounded-full blur-[100px]"></div>
+    <div class="absolute top-1/2 right-1/4 w-[300px] h-[300px]
+      bg-blue-500/[0.01] rounded-full blur-[80px]"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12 md:mb-16 reveal">
+      <span class="text-xs font-bold text-gold uppercase tracking-[4px] mb-4 block">The Story</span>
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Precision at Every Cut</h2>
+      <p class="text-steel-300 max-w-lg mx-auto text-sm md:text-base">Explore how CutSmart transforms the steel slitting business
+        — from raw coils to optimized delivery.</p>
+    </div>
+
+    <!-- Main Carousel Stage -->
+    <div class="relative" id="carousel-stage">
+      <!-- 3D Perspective Wrapper -->
+      <div class="carousel-perspective group relative mx-auto max-w-5xl">
+
+        <!-- Slide Container — borderless, fades into background -->
+        <div id="carousel-viewport" class="group relative aspect-video rounded-3xl overflow-hidden">
+
+          <!-- Side fade overlays — blends carousel edges into page background -->
+          <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#080a0e] to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#080a0e] to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#080a0e] to-transparent z-10 pointer-events-none"></div>
+
+          <!-- Slides will be injected here -->
+          <div id="carousel-slides" class="absolute inset-0"></div>
+
+          <!-- Bottom fade — blends into background with content area -->
+          <div class="absolute inset-0 z-10 pointer-events-none"
+            style="background: linear-gradient(to top, #080a0e 0%, #080a0e 5%, transparent 40%, transparent 100%)"></div>
+
+          <!-- Slide number (top-left) — hidden -->
+          <div class="absolute top-5 left-6 z-20 hidden">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-hero-red animate-pulse"></div>
+              <span class="text-[10px] font-mono text-white/60 tracking-wider" id="carousel-counter">01 / 15</span>
+            </div>
+          </div>
+
+          <!-- Autoplay timer ring (top-right) — hidden -->
+          <div class="absolute top-5 right-6 z-20 hidden">
+            <svg class="w-8 h-8 -rotate-90" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <circle id="carousel-timer-ring" cx="18" cy="18" r="15" fill="none" stroke="#C4261D"
+                stroke-width="2" stroke-dasharray="94.25" stroke-dashoffset="94.25"
+                stroke-linecap="round" class="transition-none"/>
+            </svg>
+          </div>
+
+          <!-- Bottom info panel -->
+          <div class="absolute bottom-0 left-0 right-0 z-20 p-5 md:p-8">
+            <div class="flex items-end justify-between gap-4">
+              <div class="flex-1 min-w-0">
+                <!-- Animated title -->
+                <div class="overflow-hidden mb-1">
+                  <h3 id="carousel-title" class="text-lg md:text-2xl lg:text-3xl font-bold text-white leading-tight">
+                    Demystifying Steel Slitting
+                  </h3>
+                </div>
+                <!-- Animated subtitle -->
+                <div class="overflow-hidden">
+                  <p id="carousel-subtitle" class="text-xs md:text-sm text-white/70 max-w-2xl leading-relaxed">
+                    An introduction to how Hero Steels transforms raw mother coils into precision-cut strips.
+                  </p>
+                </div>
+              </div>
+              <!-- Slide navigation — stylish arrows, appear on hover -->
+              <div class="hidden md:flex items-center gap-3 flex-shrink-0 opacity-0 translate-y-2
+                group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
+                <button id="carousel-prev" class="w-12 h-12 rounded-2xl
+                  bg-gradient-to-br from-white/[0.1] to-white/[0.03] backdrop-blur-xl
+                  border border-white/[0.15] shadow-lg shadow-black/20
+                  flex items-center justify-center text-white/80
+                  hover:from-hero-red hover:to-hero-dark hover:border-hero-red/50 hover:text-white
+                  hover:scale-115 hover:shadow-xl hover:shadow-hero-red/30
+                  active:scale-90 transition-all duration-300 cursor-pointer group/btn" aria-label="Previous">
+                  <svg class="w-5 h-5 transition-transform duration-300 group-hover/btn:-translate-x-0.5" fill="none" viewBox="0 0 24 24">
+                    <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                  </svg>
+                </button>
+                <button id="carousel-next" class="w-12 h-12 rounded-2xl
+                  bg-gradient-to-br from-white/[0.1] to-white/[0.03] backdrop-blur-xl
+                  border border-white/[0.15] shadow-lg shadow-black/20
+                  flex items-center justify-center text-white/80
+                  hover:from-hero-red hover:to-hero-dark hover:border-hero-red/50 hover:text-white
+                  hover:scale-115 hover:shadow-xl hover:shadow-hero-red/30
+                  active:scale-90 transition-all duration-300 cursor-pointer group/btn" aria-label="Next">
+                  <svg class="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" viewBox="0 0 24 24">
+                    <path d="M10 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile navigation arrows — stylish, appear on touch -->
+        <button id="carousel-prev-mobile" class="md:hidden absolute -left-1 top-1/2 -translate-y-1/2 w-11 h-11
+          rounded-2xl bg-gradient-to-br from-white/[0.1] to-white/[0.03] backdrop-blur-xl
+          border border-white/[0.12] shadow-lg shadow-black/30
+          flex items-center justify-center text-white/80
+          active:from-hero-red active:to-hero-dark active:scale-90 transition-all z-30
+          opacity-0 group-hover:opacity-100" aria-label="Previous">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+            <path d="M14 7l-5 5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button id="carousel-next-mobile" class="md:hidden absolute -right-1 top-1/2 -translate-y-1/2 w-11 h-11
+          rounded-2xl bg-gradient-to-br from-white/[0.1] to-white/[0.03] backdrop-blur-xl
+          border border-white/[0.12] shadow-lg shadow-black/30
+          flex items-center justify-center text-white/80
+          active:from-hero-red active:to-hero-dark active:scale-90 transition-all z-30
+          opacity-0 group-hover:opacity-100" aria-label="Next">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+            <path d="M10 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Minimal dot indicators -->
+      <div class="mt-6 flex items-center justify-center gap-1.5" id="carousel-thumbs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section — Animated Horizontal Flow Map -->
+<section id="process" class="relative z-10 py-28 md:py-36 overflow-hidden">
+  <!-- Background ambient -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-hero-red/10 to-transparent"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 md:mb-24 reveal">
+      <span class="text-xs font-bold text-gold uppercase tracking-[4px] mb-4 block">How It Works</span>
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">The Slitting Process</h2>
+      <p class="text-steel-300 max-w-lg mx-auto text-sm">From massive mother coils to precision-cut strips — CutSmart orchestrates every decision.</p>
+    </div>
+
+    <!-- Horizontal Process Flow -->
+    <div class="relative" id="process-flow">
+      <!-- Animated connecting line -->
+      <div class="hidden md:block absolute top-[72px] left-[10%] right-[10%] h-[2px] z-0">
+        <div class="h-full bg-gradient-to-r from-transparent via-steel-600/30 to-transparent rounded-full"></div>
+        <div class="absolute inset-0 h-full rounded-full overflow-hidden">
+          <div id="process-line-fill" class="h-full w-0 bg-gradient-to-r from-hero-red via-gold to-green-400 rounded-full transition-all duration-1000 ease-out"></div>
+        </div>
+      </div>
+
+      <!-- Process Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
+
+        <!-- Step 1: Mother Coil -->
+        <div class="process-node text-center reveal" data-step="1">
+          <div class="relative mx-auto w-36 h-36 mb-5">
+            <div class="absolute inset-0 rounded-full bg-hero-red/5 animate-pulse"></div>
+            <div class="absolute inset-2 rounded-full bg-steel-800/80 border border-hero-red/20 flex items-center justify-center">
+              <svg viewBox="0 0 80 80" class="w-16 h-16" fill="none">
+                <ellipse cx="40" cy="40" rx="28" ry="35" stroke="#C4261D" stroke-width="1.5" opacity="0.6"/>
+                <ellipse cx="40" cy="40" rx="18" ry="25" stroke="#C4261D" stroke-width="1" opacity="0.4"/>
+                <ellipse cx="40" cy="40" rx="8" ry="12" fill="#1a202c" stroke="#C4261D" stroke-width="0.5"/>
+                <path d="M40 5 L40 75" stroke="#C4261D" stroke-width="0.3" opacity="0.3" stroke-dasharray="2 2">
+                  <animate attributeName="stroke-dashoffset" values="0;4" dur="1s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+            </div>
+            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[9px] font-bold text-hero-red/60 uppercase tracking-wider">1200mm wide</div>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">Mother Coil</h4>
+          <p class="text-[11px] text-steel-400 leading-relaxed">Raw steel coils, 5–20 tonnes each, purchased from mills</p>
+        </div>
+
+        <!-- Step 2: CutSmart Engine -->
+        <div class="process-node text-center reveal" data-step="2">
+          <div class="relative mx-auto w-36 h-36 mb-5">
+            <div class="absolute inset-0 rounded-2xl bg-gold/5 border border-gold/10 rotate-3 animate-[spin_20s_linear_infinite]" style="animation-direction:reverse"></div>
+            <div class="absolute inset-2 rounded-2xl bg-steel-800/80 border border-gold/20 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-2xl mb-1">⚡</div>
+                <div class="text-[9px] font-mono text-gold/80 tracking-wider">ENGINE</div>
+                <div class="flex gap-0.5 justify-center mt-1">
+                  <div class="w-1 h-3 bg-gold/40 rounded-full animate-pulse"></div>
+                  <div class="w-1 h-4 bg-gold/60 rounded-full animate-pulse" style="animation-delay:0.2s"></div>
+                  <div class="w-1 h-2 bg-gold/30 rounded-full animate-pulse" style="animation-delay:0.4s"></div>
+                  <div class="w-1 h-5 bg-gold/70 rounded-full animate-pulse" style="animation-delay:0.1s"></div>
+                  <div class="w-1 h-3 bg-gold/50 rounded-full animate-pulse" style="animation-delay:0.3s"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">CutSmart Optimizes</h4>
+          <p class="text-[11px] text-steel-400 leading-relaxed">Heuristic engine finds best cut patterns in 2 seconds</p>
+        </div>
+
+        <!-- Step 3: Slitting Machine -->
+        <div class="process-node text-center reveal" data-step="3">
+          <div class="relative mx-auto w-36 h-36 mb-5">
+            <div class="absolute inset-0 rounded-full bg-green-500/5"></div>
+            <div class="absolute inset-2 rounded-full bg-steel-800/80 border border-green-500/20 flex items-center justify-center overflow-hidden">
+              <svg viewBox="0 0 80 80" class="w-16 h-16" fill="none">
+                <!-- Rotary blade -->
+                <circle cx="40" cy="40" r="20" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2">
+                  <animateTransform attributeName="transform" type="rotate" values="0 40 40;360 40 40" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="40" cy="40" r="12" stroke="#10b981" stroke-width="0.8" opacity="0.5">
+                  <animateTransform attributeName="transform" type="rotate" values="360 40 40;0 40 40" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="40" cy="40" r="3" fill="#10b981" opacity="0.8"/>
+                <!-- Sparks -->
+                <circle cx="60" cy="35" r="1.5" fill="#d4a853" opacity="0">
+                  <animate attributeName="opacity" values="0;1;0" dur="0.6s" repeatCount="indefinite"/>
+                  <animate attributeName="cx" values="58;65" dur="0.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="58" cy="45" r="1" fill="#d4a853" opacity="0">
+                  <animate attributeName="opacity" values="0;1;0" dur="0.8s" repeatCount="indefinite" begin="0.3s"/>
+                </circle>
+              </svg>
+            </div>
+            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[9px] font-bold text-green-400/60 uppercase tracking-wider">Rotary Knives</div>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">Precision Slitting</h4>
+          <p class="text-[11px] text-steel-400 leading-relaxed">Rotary knives cut coil into exact strip widths</p>
+        </div>
+
+        <!-- Step 4: Output Strips -->
+        <div class="process-node text-center reveal" data-step="4">
+          <div class="relative mx-auto w-36 h-36 mb-5">
+            <div class="absolute inset-0 rounded-xl bg-blue-500/5"></div>
+            <div class="absolute inset-2 rounded-xl bg-steel-800/80 border border-blue-500/20 flex items-center justify-center">
+              <div class="space-y-1.5">
+                <div class="h-2 rounded-full bg-blue-400/50 animate-pulse" style="width:48px"></div>
+                <div class="h-2 rounded-full bg-blue-400/40 animate-pulse" style="width:36px;animation-delay:0.15s"></div>
+                <div class="h-2 rounded-full bg-blue-400/60 animate-pulse" style="width:52px;animation-delay:0.3s"></div>
+                <div class="h-2 rounded-full bg-blue-400/35 animate-pulse" style="width:28px;animation-delay:0.45s"></div>
+                <div class="h-2 rounded-full bg-blue-400/50 animate-pulse" style="width:44px;animation-delay:0.6s"></div>
+              </div>
+            </div>
+            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[9px] font-bold text-blue-400/60 uppercase tracking-wider">300–450mm</div>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">Narrow Strips</h4>
+          <p class="text-[11px] text-steel-400 leading-relaxed">Multiple strips per coil, zero waste, exact widths</p>
+        </div>
+
+        <!-- Step 5: Delivery -->
+        <div class="process-node text-center reveal" data-step="5">
+          <div class="relative mx-auto w-36 h-36 mb-5">
+            <div class="absolute inset-0 rounded-full bg-purple-500/5"></div>
+            <div class="absolute inset-2 rounded-full bg-steel-800/80 border border-purple-500/20 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-2xl mb-1">📦</div>
+                <div class="text-[9px] font-mono text-purple-300/70 tracking-wider">DELIVERED</div>
+                <div class="mt-1 text-[8px] text-green-400 font-bold">99.9% YIELD</div>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1">Customer Delivery</h4>
+          <p class="text-[11px] text-steel-400 leading-relaxed">Strips shipped to auto & appliance manufacturers</p>
+        </div>
+      </div>
+
+      <!-- Flow arrows between steps (desktop) -->
+      <div class="hidden md:flex absolute top-[60px] left-[10%] right-[10%] justify-between z-5 pointer-events-none px-[12%]">
+        <svg class="w-6 h-6 text-hero-red/40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="w-6 h-6 text-gold/40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="w-6 h-6 text-green-400/40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="w-6 h-6 text-blue-400/40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+
+    <!-- Bottom summary -->
+    <div class="mt-16 text-center reveal">
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/[0.03] border border-white/[0.06]">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span class="text-xs text-steel-200">From <span class="text-white font-semibold">1,200mm coil</span> to <span class="text-white font-semibold">precision strips</span> in <span class="text-gold font-bold">2 seconds</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section id="stats" class="relative z-10 py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <span class="text-xs font-bold text-gold uppercase tracking-[4px] mb-4 block">Performance</span>
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Numbers That Matter</h2>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="stat-card rounded-2xl p-8 text-center reveal">
+        <div class="text-3xl md:text-4xl font-black text-hero-red mb-2" data-count="262">0</div>
+        <div class="text-xs text-steel-300 uppercase tracking-wider font-medium">Coils Processed</div>
+      </div>
+      <div class="stat-card rounded-2xl p-8 text-center reveal">
+        <div class="text-3xl md:text-4xl font-black text-gold mb-2" data-count="1475">0</div>
+        <div class="text-xs text-steel-300 uppercase tracking-wider font-medium">Orders Matched</div>
+      </div>
+      <div class="stat-card rounded-2xl p-8 text-center reveal">
+        <div class="text-3xl md:text-4xl font-black text-green-400 mb-2" data-count="99.9" data-suffix="%">0</div>
+        <div class="text-xs text-steel-300 uppercase tracking-wider font-medium">Yield Achieved</div>
+      </div>
+      <div class="stat-card rounded-2xl p-8 text-center reveal">
+        <div class="text-3xl md:text-4xl font-black text-blue-400 mb-2" data-count="2" data-prefix="~" data-suffix="s">0</div>
+        <div class="text-xs text-steel-300 uppercase tracking-wider font-medium">Engine Speed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Download Section -->
+<section id="download" class="relative z-10 py-32 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <span class="text-xs font-bold text-gold uppercase tracking-[4px] mb-4 block">Download</span>
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Get CutSmart</h2>
+      <p class="text-steel-300 max-w-lg mx-auto">Choose your platform. Runs fully offline — no internet required.</p>
+    </div>
+
+    <!-- OS Detection Banner -->
+    <div id="os-banner" class="hidden mb-10 rounded-2xl p-5 border border-green-500/20 bg-green-500/5
+      backdrop-blur-sm reveal">
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-lg flex-shrink-0">
+          <span id="os-banner-icon">💻</span>
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <p class="text-sm text-white font-semibold" id="os-banner-text">We detected your OS</p>
+          <p class="text-xs text-steel-300 mt-0.5" id="os-banner-sub">Here's the recommended download for your machine.</p>
+        </div>
+        <a href="#" id="os-banner-btn" class="px-5 py-2.5 rounded-lg bg-green-500 text-white text-xs font-bold
+          shadow-lg shadow-green-500/20 hover:bg-green-600 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m0 0l-6-6m6 6l6-6"/>
+          </svg>
+          Download Now
+        </a>
+      </div>
+    </div>
+
+    <!-- Windows -->
+    <div class="mb-10 reveal platform-section" data-platform="windows">
+      <h3 class="text-xs font-bold text-steel-400 uppercase tracking-[3px] mb-4 flex items-center gap-3">
+        <span class="w-5 h-px bg-gradient-to-r from-blue-400 to-transparent"></span>Windows
+      </h3>
+      <div class="space-y-3">
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
+          <span class="absolute top-0 right-4 text-[9px] font-bold px-3 py-1 rounded-b-md bg-hero-red text-white tracking-wider">RECOMMENDED</span>
+          <div class="w-11 h-11 rounded-lg bg-blue-500/10 border border-blue-500/15 flex items-center justify-center text-lg">🪟</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Desktop — Windows 10 / 11</div>
+            <div class="text-xs text-steel-300 mt-1">Native desktop app with full optimization engine. Best performance.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 5.9 MB</span><span>· MSI</span><span>· Windows 10+</span>
+            </div>
+          </div>
+          <a href="#" id="dl-msi" class="px-5 py-2.5 rounded-lg bg-hero-red text-white text-xs font-bold
+            shadow-lg shadow-hero-red/20 hover:bg-hero-dark transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-blue-500/10 border border-blue-500/15 flex items-center justify-center text-lg">🪟</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Desktop — EXE Installer (x64)</div>
+            <div class="text-xs text-steel-300 mt-1">NSIS installer. Use if MSI is blocked by IT policy.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 5.0 MB</span><span>· EXE</span><span>· Windows 10+ x64</span>
+            </div>
+          </div>
+          <a href="#" id="dl-exe" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-blue-500/10 border border-blue-500/15 flex items-center justify-center text-lg">🪟</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Desktop — MSI (x86 / 32-bit)</div>
+            <div class="text-xs text-steel-300 mt-1">For older 32-bit Windows systems.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 MSI</span><span>· Windows 10+</span><span>· 32-bit</span>
+            </div>
+          </div>
+          <a href="#" id="dl-msi-x86" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-blue-500/10 border border-blue-500/15 flex items-center justify-center text-lg">🪟</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Desktop — EXE (x86 / 32-bit)</div>
+            <div class="text-xs text-steel-300 mt-1">NSIS installer for 32-bit Windows.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 EXE</span><span>· Windows 10+</span><span>· 32-bit</span>
+            </div>
+          </div>
+          <a href="#" id="dl-exe-x86" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-green-500/10 border border-green-500/15 flex items-center justify-center text-lg">☕</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Native — Any Windows (XP / 7 / 8 / 10 / 11)</div>
+            <div class="text-xs text-steel-300 mt-1">For older machines. Self-contained — no runtime needed.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 ~50 MB</span><span>· EXE</span><span>· Windows XP SP3+</span>
+            </div>
+          </div>
+          <a href="#" id="dl-java" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-purple-500/10 border border-purple-500/15 flex items-center justify-center text-lg">🌐</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">CutSmart Web Server</div>
+            <div class="text-xs text-steel-300 mt-1">Self-hosted web interface. Run locally and access via browser.</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 EXE</span><span>· Windows</span><span>· Browser-based UI</span>
+            </div>
+          </div>
+          <a href="#" id="dl-web" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- macOS -->
+    <div class="mb-10 reveal platform-section" data-platform="macos">
+      <h3 class="text-xs font-bold text-steel-400 uppercase tracking-[3px] mb-4 flex items-center gap-3">
+        <span class="w-5 h-px bg-gradient-to-r from-gray-400 to-transparent"></span>macOS
+      </h3>
+      <div class="space-y-3">
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-gray-500/10 border border-gray-500/15 flex items-center justify-center text-lg">🍎</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">Apple Silicon (M1/M2/M3/M4)</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 4.0 MB</span><span>· DMG</span><span>· macOS 11+</span>
+            </div>
+          </div>
+          <a href="#" id="dl-mac-arm" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-gray-500/10 border border-gray-500/15 flex items-center justify-center text-lg">🍎</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">Intel Mac</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 4.2 MB</span><span>· DMG</span><span>· macOS 10.15+</span>
+            </div>
+          </div>
+          <a href="#" id="dl-mac-intel" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linux -->
+    <div class="mb-10 reveal platform-section" data-platform="linux">
+      <h3 class="text-xs font-bold text-steel-400 uppercase tracking-[3px] mb-4 flex items-center gap-3">
+        <span class="w-5 h-px bg-gradient-to-r from-orange-400 to-transparent"></span>Linux
+      </h3>
+      <div class="space-y-3">
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-orange-500/10 border border-orange-500/15 flex items-center justify-center text-lg">🐧</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">Ubuntu / Debian (.deb)</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 4.1 MB</span><span>· DEB</span><span>· Ubuntu 22.04+</span>
+            </div>
+          </div>
+          <a href="#" id="dl-deb" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+        <div class="dl-card rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div class="w-11 h-11 rounded-lg bg-orange-500/10 border border-orange-500/15 flex items-center justify-center text-lg">🐧</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-bold text-white">Universal AppImage</div>
+            <div class="text-[10px] text-steel-400 mt-1 flex gap-2">
+              <span>📦 8.1 MB</span><span>· AppImage</span><span>· Any Linux x64</span>
+            </div>
+          </div>
+          <a href="#" id="dl-appimage" class="px-5 py-2.5 rounded-lg border border-steel-600 text-steel-200 text-xs font-bold
+            hover:border-hero-red/40 hover:text-white transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap">
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show All Platforms Toggle -->
+    <div class="text-center mb-10" id="toggle-platforms-wrap">
+      <button id="toggle-platforms" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl
+        border border-steel-600/50 text-steel-300 text-xs font-semibold
+        hover:border-gold/30 hover:text-gold transition-all duration-300 hover:-translate-y-0.5
+        bg-steel-800/30 backdrop-blur-sm">
+        <svg class="w-4 h-4 transition-transform duration-300" id="toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+        <span id="toggle-text">Show all platforms</span>
+      </button>
+    </div>
+
+    <!-- System Requirements -->
+    <div class="rounded-2xl bg-steel-800/50 border border-steel-600/30 p-8 reveal">
+      <h3 class="text-sm font-bold text-white mb-5 flex items-center gap-2">
+        <span>⚙️</span> System Requirements
+      </h3>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> Windows 10+ or XP SP3+ (Native)
+        </div>
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> 64-bit processor
+        </div>
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> 256 MB free RAM
+        </div>
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> 50 MB disk space
+        </div>
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> No internet required
+        </div>
+        <div class="flex items-center gap-3 text-xs text-steel-200 px-3 py-2 rounded-lg bg-green-500/5 border border-green-500/10">
+          <span class="text-green-400">✓</span> No additional software needed
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="relative z-10 border-t border-steel-700/50 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="h-7 opacity-80">
+          <span class="text-lg font-bold">
+            <span class="text-hero-red">Cut</span><span class="text-white">Smart</span>
+          </span>
+        </div>
+        <p class="text-xs text-steel-400 leading-relaxed">
+          Steel Coil Optimization Engine built exclusively for Hero Steels Limited.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="text-xs font-bold text-steel-200 uppercase tracking-wider mb-4">Quick Links</h4>
+        <div class="space-y-2">
+          <a href="https://www.herosteels.com" class="block text-xs text-steel-400 hover:text-gold transition-colors">herosteels.com</a>
+          <a href="mailto:info@herosteels.com" class="block text-xs text-steel-400 hover:text-gold transition-colors">info@herosteels.com</a>
+          <a href="tel:+911615180000" class="block text-xs text-steel-400 hover:text-gold transition-colors">+91 161 518 0000</a>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <h4 class="text-xs font-bold text-steel-200 uppercase tracking-wider mb-4">Location</h4>
+        <p class="text-xs text-steel-400 leading-relaxed">
+          Hero Nagar, G.T. Road<br>
+          Ludhiana – 141003<br>
+          Punjab, India
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-steel-700/30 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[10px] text-steel-500">© 2026 Hero Steels Limited. All rights reserved.</p>
+      <div class="px-4 py-2 rounded-lg bg-hero-red/5 border border-hero-red/10">
+        <p class="text-[10px] text-hero-red font-medium tracking-wide">
+          🔒 CONFIDENTIAL — Provided under Non-Disclosure Agreement
+        </p>
+      </div>
+      <!-- Animated social icons -->
+      <div class="flex items-center gap-4">
+        <a href="#" class="w-8 h-8 rounded-full bg-steel-800 border border-steel-600/30 flex items-center justify-center
+          text-steel-400 hover:text-gold hover:border-gold/30 hover:scale-110 transition-all duration-300">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-full bg-steel-800 border border-steel-600/30 flex items-center justify-center
+          text-steel-400 hover:text-gold hover:border-gold/30 hover:scale-110 transition-all duration-300">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-full bg-steel-800 border border-steel-600/30 flex items-center justify-center
+          text-steel-400 hover:text-gold hover:border-gold/30 hover:scale-110 transition-all duration-300">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
 <script>
-// Download links — point to public repo releases
-var BASE = 'https://github.com/Goelrah/cutsmart-hero/releases/download/v1.0.0';
-var links = {
-  'dl-msi': BASE + '/CutSmart_1.0.0_x64_en-US.msi',
-  'dl-exe': BASE + '/CutSmart_1.0.0_x64-setup.exe',
-  'dl-java': BASE + '/CutSmart-Native-1.0.0.exe',
-  'dl-mac-arm': BASE + '/CutSmart_1.0.0_aarch64.dmg',
-  'dl-mac-intel': BASE + '/CutSmart_1.0.0_x64.dmg',
-  'dl-deb': BASE + '/CutSmart_1.0.0_amd64.deb',
-  'dl-appimage': BASE + '/CutSmart_1.0.0_amd64.AppImage'
-};
-Object.keys(links).forEach(function(id){
-  var el = document.getElementById(id);
-  if(el) el.href = links[id];
+// ============================================
+// THREE.JS — 3D Animated Background
+// ============================================
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 30;
+
+  // Particle system — steel sparks
+  const particleCount = 1500;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  const sizes = new Float32Array(particleCount);
+
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 80;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
+
+    // Mix of red, gold, and white particles
+    const colorChoice = Math.random();
+    if (colorChoice < 0.3) {
+      colors[i * 3] = 0.77; colors[i * 3 + 1] = 0.15; colors[i * 3 + 2] = 0.11; // Red
+    } else if (colorChoice < 0.6) {
+      colors[i * 3] = 0.83; colors[i * 3 + 1] = 0.66; colors[i * 3 + 2] = 0.33; // Gold
+    } else {
+      colors[i * 3] = 0.6; colors[i * 3 + 1] = 0.65; colors[i * 3 + 2] = 0.7; // Steel
+    }
+    sizes[i] = Math.random() * 2 + 0.5;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const material = new THREE.PointsMaterial({
+    size: 0.15,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.6,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+  });
+
+  const particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  // Wireframe torus — represents steel coil
+  const torusGeo = new THREE.TorusGeometry(12, 3, 16, 60);
+  const torusMat = new THREE.MeshBasicMaterial({
+    color: 0xC4261D, wireframe: true, transparent: true, opacity: 0.08
+  });
+  const torus = new THREE.Mesh(torusGeo, torusMat);
+  torus.position.set(15, -5, -10);
+  scene.add(torus);
+
+  // Second torus
+  const torus2Geo = new THREE.TorusGeometry(8, 2, 12, 40);
+  const torus2Mat = new THREE.MeshBasicMaterial({
+    color: 0xd4a853, wireframe: true, transparent: true, opacity: 0.05
+  });
+  const torus2 = new THREE.Mesh(torus2Geo, torus2Mat);
+  torus2.position.set(-18, 8, -15);
+  scene.add(torus2);
+
+  // Mouse interaction
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+
+    particles.rotation.y += 0.0003;
+    particles.rotation.x += 0.0001;
+
+    torus.rotation.x += 0.003;
+    torus.rotation.y += 0.002;
+    torus2.rotation.x -= 0.002;
+    torus2.rotation.z += 0.003;
+
+    // Mouse parallax
+    camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
+    camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ============================================
+// GSAP — Scroll Triggered Animations
+// ============================================
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance animations
+const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+heroTl
+  .to('#hero-badge', { opacity: 1, y: 0, duration: 0.8 }, 0.3)
+  .fromTo('#hero-title', { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1 }, 0.5)
+  .to('#hero-sub', { opacity: 1, y: 0, duration: 0.8 }, 0.8)
+  .to('#hero-tag', { opacity: 1, y: 0, duration: 0.8 }, 1.0)
+  .to('#hero-cta', { opacity: 1, y: 0, duration: 0.8 }, 1.2);
+
+// Reveal animations for sections — robust version
+gsap.utils.toArray('.reveal').forEach((el) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0, duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 90%',
+        toggleActions: 'play none none none',
+        once: true
+      }
+    }
+  );
 });
 
-// Intersection Observer for scroll animations
-var observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      entry.target.style.opacity='1';
-      entry.target.style.transform='translateY(0)';
+// Safety net: if any .reveal is still hidden after 4s, force show it
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (getComputedStyle(el).opacity === '0') {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
     }
   });
-},{threshold:0.1});
-document.querySelectorAll('.dl-card').forEach(function(card,i){
-  card.style.opacity='0';
-  card.style.transform='translateY(20px)';
-  card.style.transition='all 0.5s cubic-bezier(0.16,1,0.3,1) '+(i*0.08)+'s';
-  observer.observe(card);
+}, 4000);
+
+// Process flow line animation
+ScrollTrigger.create({
+  trigger: '#process-flow',
+  start: 'top 70%',
+  once: true,
+  onEnter: function() {
+    var line = document.getElementById('process-line-fill');
+    if (line) {
+      gsap.to(line, { width: '100%', duration: 2, ease: 'power2.out', delay: 0.3 });
+    }
+    // Stagger animate each process node
+    gsap.utils.toArray('.process-node').forEach(function(node, i) {
+      gsap.fromTo(node,
+        { opacity: 0, y: 30, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, delay: 0.2 + i * 0.15, ease: 'back.out(1.5)' }
+      );
+    });
+  }
+});
+
+// Parallax effect on process visual
+gsap.to('.parallax-img', {
+  yPercent: -20,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#process',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true
+  }
+});
+
+// Stats counter animation
+const statElements = document.querySelectorAll('[data-count]');
+statElements.forEach(el => {
+  const target = parseFloat(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = target % 1 !== 0;
+
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 80%',
+    onEnter: () => {
+      gsap.to({ val: 0 }, {
+        val: target,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate: function() {
+          const current = this.targets()[0].val;
+          if (isDecimal) {
+            el.textContent = prefix + current.toFixed(1) + suffix;
+          } else {
+            el.textContent = prefix + Math.round(current).toLocaleString() + suffix;
+          }
+        }
+      });
+    },
+    once: true
+  });
+});
+
+// ============================================
+// Download Links — Dynamic from GitHub Releases API
+// ============================================
+var links = {};
+var FALLBACK_TAG = 'v0.0.0';
+var REPO = 'Goelrah/cutsmart-hero';
+
+// Map of element IDs to filename patterns (tag version gets substituted)
+var FILE_MAP = {
+  'dl-msi': 'CutSmart_{v}_x64_en-US.msi',
+  'dl-exe': 'CutSmart_{v}_x64-setup.exe',
+  'dl-msi-x86': 'CutSmart_{v}_x86_en-US.msi',
+  'dl-exe-x86': 'CutSmart_{v}_x86-setup.exe',
+  'dl-java': 'CutSmart-Native-1.0.0.exe',
+  'dl-web': 'cutsmart-web.exe',
+  'dl-mac-arm': 'CutSmart_{v}_aarch64.dmg',
+  'dl-mac-intel': 'CutSmart_{v}_x64.dmg',
+  'dl-deb': 'CutSmart_{v}_amd64.deb',
+  'dl-appimage': 'CutSmart_{v}_amd64.AppImage'
+};
+
+(function loadDownloadLinks() {
+  function applyLinks(tag, availableFiles) {
+    var ver = tag.replace('v', '');
+    var BASE = 'https://github.com/' + REPO + '/releases/download/' + tag;
+    Object.keys(FILE_MAP).forEach(function(id) {
+      var filename = FILE_MAP[id].replace('{v}', ver);
+      var el = document.getElementById(id);
+      if (!el) return;
+      var card = el.closest('.dl-card');
+      // If we have an asset list, hide cards for files that don't exist
+      if (availableFiles && availableFiles.indexOf(filename) === -1) {
+        if (card) card.style.display = 'none';
+        links[id] = '#';
+      } else {
+        links[id] = BASE + '/' + filename;
+        el.href = links[id];
+        if (card) card.style.display = '';
+      }
+    });
+  }
+
+  // Fetch latest release and check which assets actually exist
+  fetch('https://api.github.com/repos/' + REPO + '/releases/latest')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data && data.tag_name && data.assets) {
+        var files = data.assets.map(function(a) { return a.name; });
+        applyLinks(data.tag_name, files);
+        // Re-run OS detection banner update after we know which files exist
+        if (window._updateBannerAvailability) window._updateBannerAvailability();
+      } else {
+        applyLinks(FALLBACK_TAG, null);
+      }
+    })
+    .catch(function() {
+      applyLinks(FALLBACK_TAG, null);
+    });
+
+  // Set fallback immediately (all links, no hiding)
+  applyLinks(FALLBACK_TAG, null);
+})();
+
+// ============================================
+// OS Detection — Fancy Download UX
+// ============================================
+(function() {
+  var ua = navigator.userAgent || '';
+  var platform = navigator.platform || '';
+  var detectedOS = 'unknown';
+  var osLabel = '';
+  var recommendedId = '';
+  var bannerIcon = '💻';
+
+  // Detect OS
+  if (/Win/.test(platform) || /Windows/.test(ua)) {
+    detectedOS = 'windows';
+    osLabel = 'Windows';
+    recommendedId = 'dl-msi';
+    bannerIcon = '🪟';
+    var winMatch = ua.match(/Windows NT (\d+\.\d+)/);
+    if (winMatch) {
+      var ver = parseFloat(winMatch[1]);
+      if (ver >= 10) osLabel = 'Windows 10/11';
+      else if (ver >= 6.1) osLabel = 'Windows 7/8';
+    }
+  } else if (/Mac/.test(platform) || /Macintosh/.test(ua)) {
+    detectedOS = 'macos';
+    bannerIcon = '🍎';
+    // Apple Silicon detection:
+    // All Macs since late 2020 are ARM. Safari lies in UA (shows "MacIntel" and "10_15_7").
+    // Best approach: default to Apple Silicon unless we can confirm Intel.
+    // navigator.userAgentData.architecture is 'arm' on Apple Silicon (Chrome/Edge only).
+    // For Safari: no reliable UA detection, so default ARM (vast majority of active Macs now).
+    var isConfirmedIntel = false;
+    if (navigator.userAgentData && navigator.userAgentData.architecture) {
+      isConfirmedIntel = (navigator.userAgentData.architecture === 'x86');
+    }
+    if (isConfirmedIntel) {
+      recommendedId = 'dl-mac-intel';
+      osLabel = 'macOS (Intel)';
+    } else {
+      // Default to Apple Silicon — covers M1, M2, M3, M4
+      recommendedId = 'dl-mac-arm';
+      osLabel = 'macOS (Apple Silicon)';
+    }
+  } else if (/Linux/.test(platform) || /Linux/.test(ua)) {
+    detectedOS = 'linux';
+    osLabel = 'Linux';
+    recommendedId = 'dl-deb';
+    bannerIcon = '🐧';
+  }
+
+  if (detectedOS === 'unknown') return;
+
+  // --- Show OS Banner ---
+  var banner = document.getElementById('os-banner');
+  var bannerText = document.getElementById('os-banner-text');
+  var bannerSub = document.getElementById('os-banner-sub');
+  var bannerIconEl = document.getElementById('os-banner-icon');
+  var bannerBtn = document.getElementById('os-banner-btn');
+
+  banner.classList.remove('hidden');
+  bannerIconEl.textContent = bannerIcon;
+  bannerText.textContent = 'Detected: ' + osLabel;
+
+  // Check if recommended download is actually available
+  function updateBannerAvailability() {
+    var recommendedLink = links[recommendedId];
+    var isAvailable = recommendedLink && recommendedLink !== '#';
+
+    if (isAvailable) {
+      bannerSub.textContent = 'We recommend CutSmart Desktop' + (detectedOS === 'windows' ? ' (.msi)' : detectedOS === 'macos' ? ' (.dmg)' : ' (.deb)') + ' for your machine.';
+      bannerBtn.href = recommendedLink;
+      bannerBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg> Download Now';
+      bannerBtn.className = 'px-5 py-2.5 rounded-lg bg-green-500 text-white text-xs font-bold shadow-lg shadow-green-500/20 hover:bg-green-600 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap flex items-center gap-2';
+      banner.className = banner.className.replace('border-amber-500/20 bg-amber-500/5', 'border-green-500/20 bg-green-500/5');
+    } else {
+      bannerSub.textContent = detectedOS === 'macos' ? 'macOS build coming soon. Windows version available now.' : detectedOS === 'linux' ? 'Linux build coming soon. Windows version available now.' : '';
+      bannerBtn.href = '#download';
+      bannerBtn.innerHTML = '\uD83D\uDEA7 Coming Soon';
+      bannerBtn.className = 'px-5 py-2.5 rounded-lg bg-steel-700 text-steel-300 text-xs font-bold border border-steel-600 cursor-default whitespace-nowrap';
+      banner.className = banner.className.replace('border-green-500/20 bg-green-500/5', 'border-amber-500/20 bg-amber-500/5');
+    }
+    return isAvailable;
+  }
+  var isAvailable = updateBannerAvailability();
+  window._updateBannerAvailability = updateBannerAvailability;
+
+  // --- Highlight recommended card ---
+  var targetEl = document.getElementById(recommendedId);
+  if (targetEl && isAvailable) {
+    var card = targetEl.closest('.dl-card');
+    if (card) {
+      card.style.borderColor = 'rgba(16,185,129,0.5)';
+      card.style.boxShadow = '0 0 30px rgba(16,185,129,0.08), 0 4px 20px rgba(0,0,0,0.3)';
+      card.style.background = 'rgba(16,185,129,0.03)';
+      var badge = document.createElement('span');
+      badge.className = 'absolute top-0 left-4 text-[9px] font-bold px-3 py-1 rounded-b-md bg-green-500 text-white tracking-wider uppercase';
+      badge.textContent = '\u2713 For Your Machine';
+      badge.style.zIndex = '5';
+      card.style.position = 'relative';
+      card.insertBefore(badge, card.firstChild);
+    }
+  }
+
+  // --- HIDE all platform sections by default (show only on demand) ---
+  var allSections = document.querySelectorAll('.platform-section');
+  allSections.forEach(function(section) {
+    section.style.display = 'none';
+  });
+
+  // --- Toggle "Show all platforms" ---
+  var toggleBtn = document.getElementById('toggle-platforms');
+  var toggleText = document.getElementById('toggle-text');
+  var toggleIcon = document.getElementById('toggle-icon');
+  var showingAll = false;
+
+  toggleBtn.addEventListener('click', function() {
+    showingAll = !showingAll;
+    allSections.forEach(function(section) {
+      section.style.display = showingAll ? 'block' : 'none';
+      section.style.opacity = '1';
+    });
+    toggleText.textContent = showingAll ? 'Hide other platforms' : 'Show all platforms';
+    toggleIcon.style.transform = showingAll ? 'rotate(180deg)' : 'rotate(0deg)';
+  });
+})();
+
+// ============================================
+// Smooth scroll for nav links
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Navbar background on scroll
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.style.borderBottomColor = 'rgba(196,38,29,0.1)';
+    nav.style.background = 'rgba(8,10,14,0.95)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(255,255,255,0.04)';
+    nav.style.background = 'rgba(8,10,14,0.7)';
+  }
 });
 </script>
-
+<script src="carousel.js"></script>
 </body>
 </html>
