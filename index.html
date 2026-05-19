@@ -198,6 +198,49 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 </head>
 <body class="font-display">
 
+<!-- DEMO Watermark (injected when version is 0.0.0) -->
+<div id="demo-watermark" class="fixed inset-0 pointer-events-none z-[100] hidden">
+  <!-- Corner ribbon -->
+  <div class="absolute top-0 right-0 overflow-hidden w-40 h-40">
+    <div class="absolute top-[22px] right-[-35px] w-[170px] text-center rotate-45
+      bg-amber-500 text-black text-[11px] font-black uppercase tracking-wider py-1.5 shadow-lg">
+      DEMO
+    </div>
+  </div>
+  <!-- Diagonal repeating watermark -->
+  <div class="absolute inset-0 opacity-[0.03] select-none overflow-hidden"
+    style="background-image: repeating-linear-gradient(-45deg, transparent, transparent 200px, rgba(212,168,83,0.3) 200px, rgba(212,168,83,0.3) 201px);"></div>
+</div>
+
+<!-- DEMO Limitations Banner (slides in from bottom) -->
+<div id="demo-limitations" class="fixed bottom-0 left-0 right-0 z-[99] hidden transform translate-y-full transition-transform duration-500">
+  <div class="max-w-4xl mx-auto px-4 pb-4">
+    <div class="rounded-2xl bg-steel-800/95 backdrop-blur-xl border border-amber-500/20 shadow-2xl shadow-black/50 p-5 md:p-6">
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 text-lg">⚠️</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-3">
+            <h4 class="text-sm font-bold text-amber-400">DEMO VERSION</h4>
+            <span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-mono">v0.0.0</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[11px] mb-3">
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-amber-400">⚡</span> Engine runs at full power — no limit</div>
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-amber-400">👁</span> Output table: only 30% of coils visible</div>
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-amber-400">🚫</span> Export disabled (no Excel/PDF)</div>
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-amber-400">🔒</span> Rules: read-only (save blocked)</div>
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-amber-400">🔒</span> History tab: locked</div>
+            <div class="flex items-center gap-2 text-steel-300"><span class="text-green-400">✓</span> All data stays local — no cloud</div>
+          </div>
+          <p class="text-[10px] text-steel-400 leading-relaxed">Full-power engine processes 262 coils × 1,475 orders. Viewing/export limits apply until commercial agreement.</p>
+        </div>
+        <button id="demo-dismiss" class="text-steel-500 hover:text-white transition-colors flex-shrink-0 mt-1" aria-label="Dismiss">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Three.js 3D Canvas -->
 <canvas id="hero-canvas"></canvas>
 
@@ -1169,16 +1212,42 @@ var FILE_MAP = {
         applyLinks(data.tag_name, files);
         // Re-run OS detection banner update after we know which files exist
         if (window._updateBannerAvailability) window._updateBannerAvailability();
+        // Inject DEMO theme if version is 0.0.0
+        injectDemoTheme(data.tag_name);
       } else {
         applyLinks(FALLBACK_TAG, null);
+        injectDemoTheme(FALLBACK_TAG);
       }
     })
     .catch(function() {
       applyLinks(FALLBACK_TAG, null);
+      injectDemoTheme(FALLBACK_TAG);
     });
 
   // Set fallback immediately (all links, no hiding)
   applyLinks(FALLBACK_TAG, null);
+
+  // DEMO theme injection
+  function injectDemoTheme(tag) {
+    if (tag !== 'v0.0.0') return; // Only for demo version
+    var watermark = document.getElementById('demo-watermark');
+    var limitations = document.getElementById('demo-limitations');
+    var dismiss = document.getElementById('demo-dismiss');
+    if (watermark) watermark.classList.remove('hidden');
+    if (limitations) {
+      limitations.classList.remove('hidden');
+      // Slide in after 2 seconds
+      setTimeout(function() { limitations.style.transform = 'translateY(0)'; }, 2000);
+    }
+    if (dismiss) {
+      dismiss.addEventListener('click', function() {
+        limitations.style.transform = 'translateY(100%)';
+        setTimeout(function() { limitations.classList.add('hidden'); }, 500);
+      });
+    }
+    // Add DEMO badge to page title
+    document.title = '[DEMO] ' + document.title;
+  }
 })();
 
 // ============================================
