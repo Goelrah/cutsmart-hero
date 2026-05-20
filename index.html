@@ -188,11 +188,17 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
   <div class="absolute inset-0 opacity-[0.035]"
     style="background-image: linear-gradient(rgba(34,211,238,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.4) 1px, transparent 1px); background-size: 50px 50px;"></div>
 
-  <!-- Scanning beam -->
+  <!-- Scanning beam — dual beams -->
   <div class="absolute inset-0 pointer-events-none overflow-hidden">
     <div class="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"
       style="animation: scanLine 3.5s ease-in-out infinite; top: 0;"></div>
+    <div class="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
+      style="animation: scanLine 5s ease-in-out infinite 1.5s; top: 0;"></div>
   </div>
+
+  <!-- Hexagonal pattern overlay -->
+  <div class="absolute inset-0 pointer-events-none opacity-[0.02]"
+    style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2322d3ee' fill-opacity='1'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;); animation: hexPulse 6s ease-in-out infinite;"></div>
 
   <!-- Floating encrypted data particles -->
   <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -210,33 +216,38 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
   <div class="absolute bottom-6 right-6 w-12 h-12 border-b-2 border-r-2 border-cyan-400/20 rounded-br-lg"></div>
 
   <div class="relative w-full max-w-lg px-6">
-    <!-- Vault Door Animation -->
-    <div class="flex justify-center mb-8" id="vault-icon">
-      <div class="relative w-36 h-36">
-        <!-- Outer rotating ring -->
+    <!-- Vault Door — Advanced Animated -->
+    <div class="flex justify-center mb-10" id="vault-icon">
+      <div class="relative w-44 h-44">
+        <!-- Outer rotating ring with data stream -->
         <div class="absolute inset-0 rounded-full border-2 border-cyan-400/15"
-          style="animation: rotateRing 15s linear infinite">
-          <div class="absolute w-2.5 h-2.5 rounded-full bg-cyan-400/50 -top-1 left-1/2 -translate-x-1/2"></div>
-          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 -bottom-1 left-1/2 -translate-x-1/2"></div>
-          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 top-1/2 -left-1 -translate-y-1/2"></div>
-          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 top-1/2 -right-1 -translate-y-1/2"></div>
+          style="animation: rotateRing 12s linear infinite">
+          <div class="absolute w-3 h-3 rounded-full bg-cyan-400/60 shadow-lg shadow-cyan-400/30 -top-1.5 left-1/2 -translate-x-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/40 -bottom-1 left-1/2 -translate-x-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/40 top-1/2 -left-1 -translate-y-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/40 top-1/2 -right-1 -translate-y-1/2"></div>
+          <!-- Orbital dots -->
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-cyan-400/30" style="top:15%;left:85%"></div>
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-cyan-400/30" style="top:85%;left:15%"></div>
         </div>
-        <!-- Second ring counter-rotating -->
-        <div class="absolute inset-3 rounded-full border border-dashed border-cyan-400/10"
-          style="animation: rotateRing 10s linear infinite reverse"></div>
-        <!-- Third ring -->
-        <div class="absolute inset-6 rounded-full border border-cyan-400/[0.07]"
-          style="animation: rotateRing 20s linear infinite"></div>
-        <!-- Inner vault shield -->
-        <div class="absolute inset-9 rounded-full bg-gradient-to-br from-cyan-400/[0.06] to-transparent border border-cyan-400/15 flex items-center justify-center">
-          <svg class="w-10 h-10 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Second ring — dashed, counter-rotating -->
+        <div class="absolute inset-4 rounded-full border border-dashed border-cyan-400/10"
+          style="animation: rotateRing 8s linear infinite reverse"></div>
+        <!-- Third ring — dotted -->
+        <div class="absolute inset-8 rounded-full border border-dotted border-cyan-400/[0.08]"
+          style="animation: rotateRing 18s linear infinite"></div>
+        <!-- Inner vault core -->
+        <div class="absolute inset-12 rounded-full bg-gradient-to-br from-cyan-400/[0.08] to-cyan-900/[0.05] border border-cyan-400/20 flex items-center justify-center shadow-[inset_0_0_20px_rgba(34,211,238,0.05)]">
+          <svg class="w-12 h-12 text-cyan-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
               d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
         </div>
-        <!-- Pulse rings -->
-        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.06]" style="animation: vaultPulse 3s ease-in-out infinite"></div>
-        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.04]" style="animation: vaultPulse 3s ease-in-out infinite 1.5s"></div>
+        <!-- Pulse rings expanding outward -->
+        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.08]" style="animation: vaultPulse 2.5s ease-out infinite"></div>
+        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.05]" style="animation: vaultPulse 2.5s ease-out infinite 1.25s"></div>
+        <!-- Ambient glow -->
+        <div class="absolute inset-0 rounded-full bg-cyan-400/[0.02] blur-xl"></div>
       </div>
     </div>
 
@@ -249,31 +260,46 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
       <p class="text-base text-white/50 font-light">Authentication required to proceed</p>
     </div>
 
-    <!-- NDA Security Infographic -->
-    <div class="grid grid-cols-3 gap-3 mb-8">
-      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
-          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-          </svg>
+    <!-- NDA Security Infographic — Large animated cards -->
+    <div class="grid grid-cols-3 gap-4 mb-10">
+      <!-- Encrypted -->
+      <div class="group text-center p-5 rounded-2xl bg-gradient-to-b from-cyan-400/[0.04] to-transparent border border-cyan-400/[0.08] hover:border-cyan-400/20 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-cyan-400/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-cyan-400/[0.08] border border-cyan-400/[0.12] flex items-center justify-center group-hover:scale-110 transition-transform duration-500" style="animation: floatIcon 4s ease-in-out infinite">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-bold text-white/80 mb-1">Encrypted</p>
+          <p class="text-[10px] text-steel-400">End-to-end AES-256</p>
         </div>
-        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">Encrypted</p>
       </div>
-      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
-          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
+      <!-- NDA Bound -->
+      <div class="group text-center p-5 rounded-2xl bg-gradient-to-b from-cyan-400/[0.04] to-transparent border border-cyan-400/[0.08] hover:border-cyan-400/20 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-cyan-400/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-cyan-400/[0.08] border border-cyan-400/[0.12] flex items-center justify-center group-hover:scale-110 transition-transform duration-500" style="animation: floatIcon 4s ease-in-out infinite 0.5s">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-bold text-white/80 mb-1">NDA Bound</p>
+          <p class="text-[10px] text-steel-400">Legally protected</p>
         </div>
-        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">NDA Bound</p>
       </div>
-      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
-          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-          </svg>
+      <!-- Verified -->
+      <div class="group text-center p-5 rounded-2xl bg-gradient-to-b from-cyan-400/[0.04] to-transparent border border-cyan-400/[0.08] hover:border-cyan-400/20 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-cyan-400/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-cyan-400/[0.08] border border-cyan-400/[0.12] flex items-center justify-center group-hover:scale-110 transition-transform duration-500" style="animation: floatIcon 4s ease-in-out infinite 1s">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-bold text-white/80 mb-1">Verified</p>
+          <p class="text-[10px] text-steel-400">Identity confirmed</p>
         </div>
-        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">Verified</p>
       </div>
     </div>
 
@@ -1206,9 +1232,12 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
 @keyframes scanLine { 0% { top: -2px; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
 @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes vaultPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0; } }
+@keyframes vaultPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0; } }
 @keyframes drift { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes floatIcon { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.03); } }
+@keyframes hexPulse { 0%,100% { opacity: 0.05; transform: scale(1); } 50% { opacity: 0.12; transform: scale(1.02); } }
+@keyframes dataStream { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
 </style>
 
 <!-- Scripts -->
