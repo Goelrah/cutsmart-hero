@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CutSmart — Hero Steels Limited | Steel Coil Optimization</title>
-<link rel="icon" href="https://www.herosteels.com/images/logo-f.png">
+<title>Secure Access</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- GSAP + ScrollTrigger -->
@@ -182,48 +182,128 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 </head>
 <body class="font-display">
 
-<!-- PASSWORD GATE — Full screen lock -->
-<div id="auth-gate" class="fixed inset-0 z-[200] flex items-center justify-center bg-[#080a0e]">
-  <div class="w-full max-w-sm px-6">
-    <!-- Logo -->
-    <div class="text-center mb-10">
-      <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="h-12 mx-auto mb-4 opacity-80">
-      <h1 class="text-2xl font-black tracking-tight mb-1">
-        <span class="text-hero-red">Cut</span><span class="text-white">Smart</span>
-      </h1>
-      <p class="text-xs text-steel-400">Authorized Access Only</p>
+<!-- PASSWORD GATE — Next-Gen Security Vault -->
+<div id="auth-gate" class="fixed inset-0 z-[200] flex items-center justify-center bg-[#030405] overflow-hidden">
+  <!-- Animated grid background -->
+  <div class="absolute inset-0 opacity-[0.035]"
+    style="background-image: linear-gradient(rgba(34,211,238,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.4) 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+  <!-- Scanning beam -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"
+      style="animation: scanLine 3.5s ease-in-out infinite; top: 0;"></div>
+  </div>
+
+  <!-- Floating encrypted data particles -->
+  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
+    <div class="absolute text-[10px] font-mono text-cyan-400/[0.07] whitespace-nowrap" style="top:8%;left:5%;animation:drift 25s linear infinite">01001 ENCRYPTED 11010 SECURE 00101</div>
+    <div class="absolute text-[10px] font-mono text-cyan-400/[0.06] whitespace-nowrap" style="top:22%;right:3%;animation:drift 30s linear infinite reverse">AES-256 ████████ SHA-512 ████</div>
+    <div class="absolute text-[10px] font-mono text-cyan-400/[0.05] whitespace-nowrap" style="top:55%;left:2%;animation:drift 22s linear infinite 2s">██ CLASSIFIED ██ NDA ██ VAULT ██</div>
+    <div class="absolute text-[10px] font-mono text-cyan-400/[0.07] whitespace-nowrap" style="top:75%;right:5%;animation:drift 28s linear infinite 1s">ZERO-KNOWLEDGE ·· HASH ·· VERIFY</div>
+    <div class="absolute text-[10px] font-mono text-cyan-400/[0.04] whitespace-nowrap" style="top:90%;left:10%;animation:drift 35s linear infinite 3s">0xF4A2..B91C ████ PROTECTED ████</div>
+  </div>
+
+  <!-- Corner security markers -->
+  <div class="absolute top-6 left-6 w-12 h-12 border-t-2 border-l-2 border-cyan-400/20 rounded-tl-lg"></div>
+  <div class="absolute top-6 right-6 w-12 h-12 border-t-2 border-r-2 border-cyan-400/20 rounded-tr-lg"></div>
+  <div class="absolute bottom-6 left-6 w-12 h-12 border-b-2 border-l-2 border-cyan-400/20 rounded-bl-lg"></div>
+  <div class="absolute bottom-6 right-6 w-12 h-12 border-b-2 border-r-2 border-cyan-400/20 rounded-br-lg"></div>
+
+  <div class="relative w-full max-w-lg px-6">
+    <!-- Vault Door Animation -->
+    <div class="flex justify-center mb-8" id="vault-icon">
+      <div class="relative w-36 h-36">
+        <!-- Outer rotating ring -->
+        <div class="absolute inset-0 rounded-full border-2 border-cyan-400/15"
+          style="animation: rotateRing 15s linear infinite">
+          <div class="absolute w-2.5 h-2.5 rounded-full bg-cyan-400/50 -top-1 left-1/2 -translate-x-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 -bottom-1 left-1/2 -translate-x-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 top-1/2 -left-1 -translate-y-1/2"></div>
+          <div class="absolute w-2 h-2 rounded-full bg-cyan-400/30 top-1/2 -right-1 -translate-y-1/2"></div>
+        </div>
+        <!-- Second ring counter-rotating -->
+        <div class="absolute inset-3 rounded-full border border-dashed border-cyan-400/10"
+          style="animation: rotateRing 10s linear infinite reverse"></div>
+        <!-- Third ring -->
+        <div class="absolute inset-6 rounded-full border border-cyan-400/[0.07]"
+          style="animation: rotateRing 20s linear infinite"></div>
+        <!-- Inner vault shield -->
+        <div class="absolute inset-9 rounded-full bg-gradient-to-br from-cyan-400/[0.06] to-transparent border border-cyan-400/15 flex items-center justify-center">
+          <svg class="w-10 h-10 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <!-- Pulse rings -->
+        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.06]" style="animation: vaultPulse 3s ease-in-out infinite"></div>
+        <div class="absolute inset-0 rounded-full border border-cyan-400/[0.04]" style="animation: vaultPulse 3s ease-in-out infinite 1.5s"></div>
+      </div>
     </div>
 
-    <!-- Lock icon -->
-    <div class="flex justify-center mb-8">
-      <div class="w-16 h-16 rounded-2xl bg-hero-red/10 border border-hero-red/20 flex items-center justify-center">
-        <svg class="w-7 h-7 text-hero-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-        </svg>
+    <!-- Status badge -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-400/[0.05] border border-cyan-400/10 mb-5">
+        <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
+        <span class="text-[10px] font-mono text-cyan-400/80 uppercase tracking-[3px]">Secure Vault</span>
+      </div>
+      <p class="text-base text-white/50 font-light">Authentication required to proceed</p>
+    </div>
+
+    <!-- NDA Security Infographic -->
+    <div class="grid grid-cols-3 gap-3 mb-8">
+      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
+          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">Encrypted</p>
+      </div>
+      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
+          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">NDA Bound</p>
+      </div>
+      <div class="text-center p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+        <div class="w-8 h-8 mx-auto mb-2 rounded-lg bg-cyan-400/[0.08] flex items-center justify-center">
+          <svg class="w-4 h-4 text-cyan-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <p class="text-[9px] text-cyan-400/60 font-mono uppercase tracking-wider">Verified</p>
       </div>
     </div>
 
     <!-- Password form -->
     <form id="auth-form" class="space-y-4">
-      <div class="relative">
+      <div class="relative group">
+        <div class="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 blur-sm"></div>
         <input type="password" id="auth-password" autocomplete="off" placeholder="Enter access code"
-          class="w-full px-5 py-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm
-          placeholder:text-steel-500 focus:outline-none focus:border-hero-red/40 focus:ring-1 focus:ring-hero-red/20
-          transition-all duration-200">
-        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-lg
-          bg-hero-red text-white text-xs font-bold hover:bg-hero-dark transition-colors">
-          Enter
-        </button>
+          class="relative w-full px-6 py-5 rounded-2xl bg-white/[0.03] border border-cyan-400/10 text-white text-center text-base
+          font-mono tracking-[3px] placeholder:tracking-normal placeholder:font-sans placeholder:text-steel-500 placeholder:text-sm
+          focus:outline-none focus:border-cyan-400/30 focus:shadow-[0_0_30px_rgba(34,211,238,0.06)]
+          transition-all duration-300">
       </div>
-      <p id="auth-error" class="text-xs text-hero-red text-center hidden">Incorrect access code. Try again.</p>
+      <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-400/[0.08] to-cyan-400/[0.04]
+        border border-cyan-400/15 text-cyan-400/90 text-sm font-bold uppercase tracking-[3px]
+        hover:from-cyan-400/[0.15] hover:to-cyan-400/[0.08] hover:border-cyan-400/30 hover:text-cyan-300
+        hover:shadow-[0_0_40px_rgba(34,211,238,0.08)]
+        active:scale-[0.98] transition-all duration-300">
+        Authenticate
+      </button>
+      <p id="auth-error" class="text-xs text-red-400/80 text-center hidden font-mono">⚠ ACCESS DENIED — Invalid credentials</p>
     </form>
 
-    <!-- NDA notice -->
-    <div class="mt-8 text-center">
-      <p class="text-[10px] text-steel-500 leading-relaxed">
-        🔒 Protected under NDA between Hero Steels Limited & Rahul Goel.<br>
-        Unauthorized access is strictly prohibited.
-      </p>
+    <!-- Bottom security badges -->
+    <div class="mt-8 flex items-center justify-center gap-4 text-[8px] font-mono text-steel-600 uppercase tracking-wider">
+      <span>SHA-256</span>
+      <span class="w-1 h-1 rounded-full bg-cyan-400/20"></span>
+      <span>Zero-Knowledge</span>
+      <span class="w-1 h-1 rounded-full bg-cyan-400/20"></span>
+      <span>Session-Locked</span>
     </div>
   </div>
 </div>
@@ -1069,6 +1149,9 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
   if (sessionStorage.getItem('cutsmart_auth') === 'true') {
     gate.style.display = 'none';
     content.classList.remove('hidden');
+    document.title = 'CutSmart \u2014 Hero Steels Limited';
+    var link = document.querySelector("link[rel='icon']");
+    if (link) link.href = 'https://www.herosteels.com/images/logo-f.png';
   } else {
     input.focus();
   }
@@ -1088,15 +1171,24 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 
     var hash = await sha256(pwd);
     if (hash === PASS_HASH) {
-      // Authenticated
+      // Authenticated — vault unlock animation
       sessionStorage.setItem('cutsmart_auth', 'true');
-      gate.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      // Flash the vault icon green
+      var vaultIcon = document.getElementById('vault-icon');
+      if (vaultIcon) vaultIcon.style.filter = 'hue-rotate(80deg) brightness(1.5)';
+      // Expand and fade
+      gate.style.transition = 'opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease';
       gate.style.opacity = '0';
-      gate.style.transform = 'scale(1.02)';
+      gate.style.transform = 'scale(1.05)';
+      gate.style.filter = 'blur(8px)';
       setTimeout(function() {
         gate.style.display = 'none';
         content.classList.remove('hidden');
-      }, 400);
+        document.title = 'CutSmart \u2014 Hero Steels Limited';
+        // Restore favicon
+        var link = document.querySelector("link[rel='icon']");
+        if (link) link.href = 'https://www.herosteels.com/images/logo-f.png';
+      }, 600);
       error.classList.add('hidden');
     } else {
       // Wrong password — shake animation
@@ -1112,6 +1204,11 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 </script>
 <style>
 @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+@keyframes scanLine { 0% { top: -2px; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+@keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes vaultPulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0; } }
+@keyframes drift { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 </style>
 
 <!-- Scripts -->
