@@ -182,7 +182,54 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 </head>
 <body class="font-display">
 
-<!-- DEMO Watermark (injected when version is 0.0.0) -->
+<!-- PASSWORD GATE — Full screen lock -->
+<div id="auth-gate" class="fixed inset-0 z-[200] flex items-center justify-center bg-[#080a0e]">
+  <div class="w-full max-w-sm px-6">
+    <!-- Logo -->
+    <div class="text-center mb-10">
+      <img src="https://www.herosteels.com/images/logo-f.png" alt="Hero Steels" class="h-12 mx-auto mb-4 opacity-80">
+      <h1 class="text-2xl font-black tracking-tight mb-1">
+        <span class="text-hero-red">Cut</span><span class="text-white">Smart</span>
+      </h1>
+      <p class="text-xs text-steel-400">Authorized Access Only</p>
+    </div>
+
+    <!-- Lock icon -->
+    <div class="flex justify-center mb-8">
+      <div class="w-16 h-16 rounded-2xl bg-hero-red/10 border border-hero-red/20 flex items-center justify-center">
+        <svg class="w-7 h-7 text-hero-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Password form -->
+    <form id="auth-form" class="space-y-4">
+      <div class="relative">
+        <input type="password" id="auth-password" autocomplete="off" placeholder="Enter access code"
+          class="w-full px-5 py-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm
+          placeholder:text-steel-500 focus:outline-none focus:border-hero-red/40 focus:ring-1 focus:ring-hero-red/20
+          transition-all duration-200">
+        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-lg
+          bg-hero-red text-white text-xs font-bold hover:bg-hero-dark transition-colors">
+          Enter
+        </button>
+      </div>
+      <p id="auth-error" class="text-xs text-hero-red text-center hidden">Incorrect access code. Try again.</p>
+    </form>
+
+    <!-- NDA notice -->
+    <div class="mt-8 text-center">
+      <p class="text-[10px] text-steel-500 leading-relaxed">
+        🔒 Protected under NDA between Hero Steels Limited & Rahul Goel.<br>
+        Unauthorized access is strictly prohibited.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- All page content (hidden until authenticated) -->
+<div id="page-content" class="hidden">
 <div id="demo-watermark" class="fixed inset-0 pointer-events-none z-[100] hidden">
   <!-- Corner ribbon — large and bold -->
   <div class="absolute top-0 right-0 overflow-hidden w-52 h-52">
@@ -1001,6 +1048,71 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
     </div>
   </div>
 </footer>
+
+</div><!-- end #page-content -->
+
+<!-- Auth Script (runs before page content is shown) -->
+<script>
+(function() {
+  // SHA-256 hash of the access password
+  // To change password: hash your new password at https://emn178.github.io/online-tools/sha256.html
+  // Current password hash (set by admin):
+  var PASS_HASH = 'ef285c91dfbe18bc0dca498f2db94e6f4178731c75f3e80468dada9c3ee0d434';
+
+  var gate = document.getElementById('auth-gate');
+  var content = document.getElementById('page-content');
+  var form = document.getElementById('auth-form');
+  var input = document.getElementById('auth-password');
+  var error = document.getElementById('auth-error');
+
+  // Check if already authenticated this session
+  if (sessionStorage.getItem('cutsmart_auth') === 'true') {
+    gate.style.display = 'none';
+    content.classList.remove('hidden');
+  } else {
+    input.focus();
+  }
+
+  // SHA-256 hash function (Web Crypto API)
+  async function sha256(message) {
+    var msgBuffer = new TextEncoder().encode(message);
+    var hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    var hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var pwd = input.value.trim();
+    if (!pwd) return;
+
+    var hash = await sha256(pwd);
+    if (hash === PASS_HASH) {
+      // Authenticated
+      sessionStorage.setItem('cutsmart_auth', 'true');
+      gate.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      gate.style.opacity = '0';
+      gate.style.transform = 'scale(1.02)';
+      setTimeout(function() {
+        gate.style.display = 'none';
+        content.classList.remove('hidden');
+      }, 400);
+      error.classList.add('hidden');
+    } else {
+      // Wrong password — shake animation
+      error.classList.remove('hidden');
+      input.style.borderColor = 'rgba(196,38,29,0.5)';
+      input.style.animation = 'shake 0.4s ease';
+      setTimeout(function() { input.style.animation = ''; input.style.borderColor = ''; }, 400);
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+</script>
+<style>
+@keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+</style>
 
 <!-- Scripts -->
 <script>
