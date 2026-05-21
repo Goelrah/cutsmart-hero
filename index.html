@@ -1236,19 +1236,13 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
           '<div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,#111 0,#111 24px,#c4261d 24px,#c4261d 48px)"></div>' +
           '<div style="position:absolute;top:50%;left:50%;transform:translate(-30%,-50%);opacity:0.12"><img src=https://www.herosteels.com/images/logo-f.png style="height:80px;filter:grayscale(1) brightness(2)"></div>';
 
-        // Center seam — glowing hot steel line
-        var seam = document.createElement('div');
-        seam.style.cssText = 'position:absolute;top:0;bottom:0;left:50%;width:6px;transform:translateX(-50%);z-index:3;background:linear-gradient(to bottom,transparent 5%,rgba(196,38,29,0.8) 20%,rgba(212,168,83,0.9) 50%,rgba(196,38,29,0.8) 80%,transparent 95%);box-shadow:0 0 20px rgba(196,38,29,0.5),0 0 60px rgba(212,168,83,0.2);transition:opacity 1.5s ease 0.5s';
-
         gate.appendChild(leftDoor);
         gate.appendChild(rightDoor);
-        gate.appendChild(seam);
 
         // Slide doors open — content is already visible behind them
         setTimeout(function() {
           leftDoor.style.transform = 'translateX(-100%)';
           rightDoor.style.transform = 'translateX(100%)';
-          seam.style.opacity = '0';
         }, 100);
 
         // Clean up after doors fully open
