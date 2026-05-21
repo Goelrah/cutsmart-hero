@@ -1208,7 +1208,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
       // Phase 2: Steel vault doors with Hero Steels logo — slide open
       setTimeout(function() {
         content.classList.remove('hidden');
-        content.style.opacity = '0';
+        content.style.opacity = '1';
         gate.innerHTML = '';
         gate.style.transition = 'none';
 
@@ -1244,25 +1244,20 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
         gate.appendChild(rightDoor);
         gate.appendChild(seam);
 
-        // Slide doors open (translateX — heavy slide, not rotate)
+        // Slide doors open — content is already visible behind them
         setTimeout(function() {
           leftDoor.style.transform = 'translateX(-100%)';
           rightDoor.style.transform = 'translateX(100%)';
           seam.style.opacity = '0';
-          // Slowly fade in page content
-          content.style.transition = 'opacity 1.5s ease 1.2s';
-          content.style.opacity = '1';
         }, 100);
 
-        // Clean up
+        // Clean up after doors fully open
         setTimeout(function() {
           gate.style.display = 'none';
-          content.style.transition = '';
-          content.style.opacity = '';
           document.title = 'CutSmart \u2014 Hero Steels Limited';
           var link = document.querySelector("link[rel='icon']");
           if (link) link.href = 'https://www.herosteels.com/images/logo-f.png';
-        }, 3200);
+        }, 3000);
       }, 2000);
 
     } else {
