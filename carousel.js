@@ -185,26 +185,15 @@ function done(n) { n.classList.add('slide-active-kb'); isAnimating = false; }
 
 // ===== TEXT & UI =====
 function animateText() {
-  if (mAnimate) {
-    try {
-      mAnimate(titleEl, {opacity:[1,0], transform:['translateY(0px)','translateY(30px)']}, {duration:0.2, easing:'ease-in'}).finished.then(function(){
-        titleEl.textContent = carouselSlides[current].title;
-        mAnimate(titleEl, {opacity:[0,1], transform:['translateY(20px) scale(0.95)','translateY(0px) scale(1)']},
-          {duration:0.6, easing:[0.16,1,0.3,1]});
-      }).catch(function(){});
-      mAnimate(subtitleEl, {opacity:[1,0], transform:['translateY(0px)','translateY(15px)']}, {duration:0.15, easing:'ease-in'}).finished.then(function(){
-        subtitleEl.textContent = carouselSlides[current].subtitle;
-        mAnimate(subtitleEl, {opacity:[0,1], transform:['translateY(12px)','translateY(0px)']},
-          {duration:0.5, delay:0.1, easing:[0.16,1,0.3,1]});
-      }).catch(function(){});
-    } catch(e) {
-      titleEl.textContent = carouselSlides[current].title;
-      subtitleEl.textContent = carouselSlides[current].subtitle;
-    }
-  } else {
+  // Use GSAP for text (reliable, no errors)
+  gsap.to(titleEl, {opacity:0, y:-15, duration:0.2, ease:'power2.in', onComplete:function(){
     titleEl.textContent = carouselSlides[current].title;
+    gsap.fromTo(titleEl, {opacity:0, y:20, scale:0.95}, {opacity:1, y:0, scale:1, duration:0.5, ease:'back.out(1.4)'});
+  }});
+  gsap.to(subtitleEl, {opacity:0, y:-10, duration:0.15, ease:'power2.in', onComplete:function(){
     subtitleEl.textContent = carouselSlides[current].subtitle;
-  }
+    gsap.fromTo(subtitleEl, {opacity:0, y:12}, {opacity:1, y:0, duration:0.45, delay:0.08, ease:'back.out(1.2)'});
+  }});
 }
 
 function updateDots() {
