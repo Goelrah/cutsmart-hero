@@ -1201,61 +1201,57 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
       sessionStorage.setItem('cutsmart_auth', 'true');
       error.classList.add('hidden');
 
-      // Phase 1: Flash vault green + "ACCESS GRANTED" text
-      var vaultIcon = document.getElementById('vault-icon');
-      if (vaultIcon) {
-        vaultIcon.style.transition = 'filter 0.3s ease';
-        vaultIcon.style.filter = 'hue-rotate(80deg) brightness(1.8) drop-shadow(0 0 30px rgba(34,211,238,0.5))';
-      }
-      // Change button to success state
-      var btn = form.querySelector('button[type=submit]');
-      btn.textContent = '✓ ACCESS GRANTED';
-      btn.style.background = 'rgba(16,185,129,0.15)';
-      btn.style.borderColor = 'rgba(16,185,129,0.4)';
-      btn.style.color = '#10b981';
+      // Phase 1: Show huge ACCESS GRANTED in center
+      var overlay = document.createElement('div');
+      overlay.id = 'access-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:210;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(3,4,5,0.95);opacity:0;transition:opacity 0.3s';
+      overlay.innerHTML = '<div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 0 40px rgba(16,185,129,0.15);animation:vaultPulse 1.5s ease-out infinite"><svg style="width:40px;height:40px;color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><p style="font-size:clamp(28px,5vw,48px);font-weight:900;color:#10b981;letter-spacing:6px;text-transform:uppercase;text-shadow:0 0 40px rgba(16,185,129,0.3);margin:0">ACCESS GRANTED</p><p style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:12px;letter-spacing:3px;font-family:monospace">VAULT UNLOCKING...</p>';
+      gate.appendChild(overlay);
+      requestAnimationFrame(function() { overlay.style.opacity = '1'; });
 
-      // Phase 2: Vault rings spin fast (unlocking)
+      // Phase 2: After showing message, split vault doors open from center
       setTimeout(function() {
-        var rings = gate.querySelectorAll('[style*="rotateRing"]');
-        rings.forEach(function(r) { r.style.animationDuration = '0.5s'; });
-      }, 400);
+        overlay.style.transition = 'opacity 0.4s';
+        overlay.style.opacity = '0';
 
-      // Phase 3: Split the gate open like vault doors
-      setTimeout(function() {
-        gate.style.transition = 'none';
-        gate.innerHTML = '<div id="vault-left" style="position:absolute;inset:0;width:50%;overflow:hidden;transition:transform 1s cubic-bezier(0.7,0,0.3,1);background:#030405;z-index:1"><div style="width:200%;height:100%;background:#030405"></div></div>' +
-          '<div id="vault-right" style="position:absolute;top:0;right:0;bottom:0;width:50%;overflow:hidden;transition:transform 1s cubic-bezier(0.7,0,0.3,1);background:#030405;z-index:1"><div style="width:200%;margin-left:-100%;height:100%;background:#030405"></div></div>' +
-          '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0"><div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;animation:vaultPulse 1s ease-out infinite"><svg style="width:40px;height:40px;color:rgba(16,185,129,0.8)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg></div></div>';
-
-        // Show content behind
-        content.classList.remove('hidden');
-        content.style.opacity = '0';
-
-        // Trigger the split
-        requestAnimationFrame(function() {
-          document.getElementById('vault-left').style.transform = 'translateX(-105%) skewX(3deg)';
-          document.getElementById('vault-right').style.transform = 'translateX(105%) skewX(-3deg)';
-          content.style.transition = 'opacity 0.8s ease 0.4s';
-          content.style.opacity = '1';
-        });
-
-        // Clean up
+        // Replace gate content with split doors
         setTimeout(function() {
-          gate.style.display = 'none';
-          content.style.transition = '';
-          content.style.opacity = '';
-          document.title = 'CutSmart \u2014 Hero Steels Limited';
-          var link = document.querySelector("link[rel='icon']");
-          if (link) link.href = 'https://www.herosteels.com/images/logo-f.png';
-        }, 1400);
-      }, 900);
+          gate.style.transition = 'none';
+          gate.innerHTML = '<div id="vault-left" style="position:absolute;top:0;left:0;bottom:0;width:50%;background:#030405;transition:transform 1.2s cubic-bezier(0.7,0,0.2,1);transform-origin:left center;z-index:2;border-right:1px solid rgba(34,211,238,0.1);box-shadow:10px 0 40px rgba(0,0,0,0.8)"></div><div id="vault-right" style="position:absolute;top:0;right:0;bottom:0;width:50%;background:#030405;transition:transform 1.2s cubic-bezier(0.7,0,0.2,1);transform-origin:right center;z-index:2;border-left:1px solid rgba(34,211,238,0.1);box-shadow:-10px 0 40px rgba(0,0,0,0.8)"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1"><div style="width:2px;height:60%;background:linear-gradient(to bottom,transparent,rgba(16,185,129,0.3),transparent);animation:vaultPulse 1s ease-out infinite"></div></div>';
+
+          // Show content behind
+          content.classList.remove('hidden');
+          content.style.opacity = '0';
+
+          // Trigger door opening
+          requestAnimationFrame(function() {
+            document.getElementById('vault-left').style.transform = 'translateX(-100%) rotateY(-15deg)';
+            document.getElementById('vault-right').style.transform = 'translateX(100%) rotateY(15deg)';
+            content.style.transition = 'opacity 0.8s ease 0.5s';
+            content.style.opacity = '1';
+          });
+
+          // Clean up
+          setTimeout(function() {
+            gate.style.display = 'none';
+            content.style.transition = '';
+            content.style.opacity = '';
+            document.title = 'CutSmart \u2014 Hero Steels Limited';
+            var link = document.querySelector("link[rel='icon']");
+            if (link) link.href = 'https://www.herosteels.com/images/logo-f.png';
+          }, 1600);
+        }, 400);
+      }, 1800);
 
     } else {
-      // Wrong password — shake animation
+      // Wrong password — show ACCESS DENIED + shake
       error.classList.remove('hidden');
-      input.style.borderColor = 'rgba(196,38,29,0.5)';
-      input.style.animation = 'shake 0.4s ease';
-      setTimeout(function() { input.style.animation = ''; input.style.borderColor = ''; }, 400);
+      error.innerHTML = '<span style="display:block;font-size:16px;font-weight:800;letter-spacing:3px;color:#ef4444;margin-bottom:4px">ACCESS DENIED</span><span style="font-size:10px;color:rgba(239,68,68,0.6)">Invalid credentials</span>';
+      input.style.borderColor = 'rgba(239,68,68,0.4)';
+      input.style.animation = 'shake 0.5s ease';
+      // Brief red flash on gate
+      gate.style.boxShadow = 'inset 0 0 100px rgba(239,68,68,0.05)';
+      setTimeout(function() { input.style.animation = ''; input.style.borderColor = ''; gate.style.boxShadow = ''; }, 600);
       input.value = '';
       input.focus();
     }
