@@ -158,9 +158,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #080a0e; color: 
 @keyframes timerFill { from { stroke-dashoffset: 94.25; } to { stroke-dashoffset: 0; } }
 .timer-running { animation: timerFill 5s linear forwards; }
 
-/* Parallax image */
-.parallax-img { transition: transform 0.1s linear; }
-
 /* Glowing border animation */
 @keyframes borderGlow { 0%,100% { border-color: rgba(196,38,29,0.15); }
   50% { border-color: rgba(212,168,83,0.2); } }
@@ -1468,18 +1465,6 @@ ScrollTrigger.create({
         { opacity: 1, y: 0, scale: 1, duration: 0.7, delay: 0.2 + i * 0.15, ease: 'back.out(1.5)' }
       );
     });
-  }
-});
-
-// Parallax effect on process visual
-gsap.to('.parallax-img', {
-  yPercent: -20,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '#process',
-    start: 'top bottom',
-    end: 'bottom top',
-    scrub: true
   }
 });
 

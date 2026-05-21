@@ -100,7 +100,7 @@ window.fx_spring3d = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {opacity:1, transform:'scale(1) translateX(0px) rotateY(0deg)'},
     {duration:1.0, easing:mSpring({stiffness:100, damping:12, mass:0.9})}
-  ).then(function(){done(n);});
+  ).finished.then(function(){done(n);}).catch(function(){done(n);});
 };
 
 // 2. Wipe — polygon clip-path curtain with spring
@@ -112,7 +112,7 @@ window.fx_wipe = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {clipPath:'polygon(0 0,100% 0,100% 100%,0 100%)'},
     {duration:0.8, easing:mSpring({stiffness:130, damping:18})}
-  ).then(function(){n.style.clipPath=''; done(n);});
+  ).finished.then(function(){n.style.clipPath=''; done(n);}).catch(function(){done(n);});
 };
 
 // 3. Zoom Burst — explosive scale with rotation
@@ -123,7 +123,7 @@ window.fx_zoom = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {opacity:1, transform:'scale(1) rotate(0deg)'},
     {duration:0.9, easing:mSpring({stiffness:160, damping:14})}
-  ).then(function(){done(n);});
+  ).finished.then(function(){done(n);}).catch(function(){done(n);});
 };
 
 // 4. Glitch — digital distortion
@@ -143,7 +143,7 @@ window.fx_flip = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {opacity:1, transform:'perspective(800px) rotateY(0deg) scale(1)'},
     {duration:0.8, easing:mSpring({stiffness:130, damping:13})}
-  ).then(function(){done(n);});
+  ).finished.then(function(){done(n);}).catch(function(){done(n);});
 };
 
 // 6. Shatter — diagonal skew split
@@ -155,7 +155,7 @@ window.fx_shatter = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {opacity:1, transform:'scale(1) skewX(0deg) translateX(0px)'},
     {duration:0.85, easing:mSpring({stiffness:140, damping:15})}
-  ).then(function(){done(n);});
+  ).finished.then(function(){done(n);}).catch(function(){done(n);});
 };
 
 // 7. Rotate 3D — X-axis tilt with depth
@@ -167,7 +167,7 @@ window.fx_rotate3d = function(o, n, d) {
   void n.offsetWidth;
   mAnimate(n, {opacity:1, transform:'perspective(600px) rotateX(0deg) translateY(0px) scale(1)'},
     {duration:0.9, easing:mSpring({stiffness:120, damping:14})}
-  ).then(function(){done(n);});
+  ).finished.then(function(){done(n);}).catch(function(){done(n);});
 };
 
 // CSS Fallback — still dramatic, never a plain fade
@@ -185,17 +185,22 @@ function done(n) { n.classList.add('slide-active-kb'); isAnimating = false; }
 
 // ===== TEXT & UI =====
 function animateText() {
-  if (mAnimate && mSpring) {
-    mAnimate(titleEl, {opacity:0, transform:'translateY(30px) scale(0.9)'}, {duration:0.2}).then(function(){
+  if (mAnimate) {
+    try {
+      mAnimate(titleEl, {opacity:[1,0], transform:['translateY(0px)','translateY(30px)']}, {duration:0.2, easing:'ease-in'}).finished.then(function(){
+        titleEl.textContent = carouselSlides[current].title;
+        mAnimate(titleEl, {opacity:[0,1], transform:['translateY(20px) scale(0.95)','translateY(0px) scale(1)']},
+          {duration:0.6, easing:[0.16,1,0.3,1]});
+      }).catch(function(){});
+      mAnimate(subtitleEl, {opacity:[1,0], transform:['translateY(0px)','translateY(15px)']}, {duration:0.15, easing:'ease-in'}).finished.then(function(){
+        subtitleEl.textContent = carouselSlides[current].subtitle;
+        mAnimate(subtitleEl, {opacity:[0,1], transform:['translateY(12px)','translateY(0px)']},
+          {duration:0.5, delay:0.1, easing:[0.16,1,0.3,1]});
+      }).catch(function(){});
+    } catch(e) {
       titleEl.textContent = carouselSlides[current].title;
-      mAnimate(titleEl, {opacity:1, transform:'translateY(0px) scale(1)'},
-        {duration:0.8, easing:mSpring({stiffness:150, damping:11})});
-    });
-    mAnimate(subtitleEl, {opacity:0, transform:'translateY(18px)'}, {duration:0.15}).then(function(){
       subtitleEl.textContent = carouselSlides[current].subtitle;
-      mAnimate(subtitleEl, {opacity:1, transform:'translateY(0px)'},
-        {delay:0.12, duration:0.7, easing:mSpring({stiffness:140, damping:13})});
-    });
+    }
   } else {
     titleEl.textContent = carouselSlides[current].title;
     subtitleEl.textContent = carouselSlides[current].subtitle;
