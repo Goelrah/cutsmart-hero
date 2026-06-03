@@ -1,0 +1,19 @@
+{
+  "version": "0.0.24",
+  "notes": "Build 80e60208b1",
+  "pub_date": "2026-06-03T18:01:27Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "",
+      "url": "https://github.com/Goelrah/cutsmart-hero/releases/download/v0.0.0/CutSmart_0.0.24_x64_en-US.msi"
+    },
+    "darwin-aarch64": {
+      "signature": "",
+      "url": "https://github.com/Goelrah/cutsmart-hero/releases/download/v0.0.0/"
+    },
+    "linux-x86_64": {
+      "signature": "",
+      "url": "https://github.com/Goelrah/cutsmart-hero/releases/download/v0.0.0/"
+    }
+  }
+}
